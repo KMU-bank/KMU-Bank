@@ -9,6 +9,7 @@ public class Account {
 	private boolean haveCard = false;
 	LinkedList<String> stateList = new LinkedList<String>();
 	private boolean stolen = false;
+	private int debt = 0;
 
 	public Account(String accountNumber, String name){
 		this.accountNumber = accountNumber;
@@ -39,6 +40,10 @@ public class Account {
 			return false;
 		balance -= money;
 		return true;
+	}
+	
+	public void loan(int money){
+		debt += money;
 	}
 	
 	public boolean useCard(String accountNumber, String state, int money){
