@@ -5,16 +5,13 @@ import java.util.Random;
 
 public class Bank {
 	
-	private static Bank bank;
 	private HashMap<String, Account> account = new HashMap<String, Account>();
+	public String INIT = "";	//initial account number
+	public double interest = 0.0;
 	
-	final private String INIT = "7";	//initial account number
-	private double interest = 0.1;
-	
-	public static Bank getinstance(){
-		if(bank == null)
-			bank = new Bank();
-		return bank;
+	protected Bank(String INIT, double interest){
+		this.INIT = INIT;
+		this.interest = interest;
 	}
 	
 	public String openAccount(String name){
