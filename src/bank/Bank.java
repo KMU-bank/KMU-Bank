@@ -3,6 +3,8 @@ package bank;
 import java.util.HashMap;
 import java.util.Random;
 
+import account.Account;
+
 public class Bank {
 	
 	private HashMap<String, Account> account = new HashMap<String, Account>();
