@@ -46,5 +46,4 @@ Account
 	loan : 현재 대출받은 금액. 늘 0이상
 	Balance_interest : 예금이자율
 	Loan_interest : 대출이자율
-멤버함수
-	C
+
