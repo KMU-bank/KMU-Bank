@@ -5,57 +5,57 @@ public class View {
 	public void Title(){
 		System.out.println("");
 		
-		//---------------Å¸Æ¼Æ² È­¸é----------------------
+		//---------------íƒ€í‹°í‹€ í™”ë©´----------------------
 		
 		System.out.println("**************************************************************************");
 		System.out.println("*                                                                        *");
-		System.out.println("*	¡á¡á¡á¡á¡á¡á                 ¡á       ¡á¡á ¡á           ¡á ¡á         ¡á      *");
-		System.out.println("*	¡á     ¡á                ¡á     ¡á¡á   ¡á¡á         ¡á¡á ¡á         ¡á      *");
-		System.out.println("*	¡á     ¡á                ¡á   ¡á¡á     ¡á ¡á       ¡á ¡á ¡á         ¡á      *");
-		System.out.println("*	¡á¡á¡á¡á¡á¡á   ¡á¡á¡á¡á   ¡á¡á   ¡á ¡á ¡á¡á       ¡á  ¡á     ¡á  ¡á ¡á         ¡á      *");
-		System.out.println("*	¡á     ¡á ¡á    ¡á  ¡á ¡á  ¡á ¡á¡á  ¡á¡á     ¡á   ¡á   ¡á   ¡á ¡á         ¡á      *");
-		System.out.println("*	¡á     ¡á ¡á    ¡á  ¡á  ¡á ¡á ¡á     ¡á¡á   ¡á    ¡á ¡á    ¡á  ¡á¡á     ¡á¡á       *");
-		System.out.println("*	¡á¡á¡á¡á¡á¡á   ¡á¡á¡á¡á ¡á ¡á   ¡á¡á ¡á       ¡á¡á ¡á     ¡á     ¡á    ¡á¡á¡á¡á¡á         *");
+		System.out.println("*	â– â– â– â– â– â–                  â–        â– â–  â–            â–  â–          â–       *");
+		System.out.println("*	â–      â–                 â–      â– â–    â– â–          â– â–  â–          â–       *");
+		System.out.println("*	â–      â–                 â–    â– â–      â–  â–        â–  â–  â–          â–       *");
+		System.out.println("*	â– â– â– â– â– â–    â– â– â– â–    â– â–    â–  â–  â– â–        â–   â–      â–   â–  â–          â–       *");
+		System.out.println("*	â–      â–  â–     â–   â–  â–   â–  â– â–   â– â–      â–    â–    â–    â–  â–          â–       *");
+		System.out.println("*	â–      â–  â–     â–   â–   â–  â–  â–      â– â–    â–     â–  â–     â–   â– â–      â– â–        *");
+		System.out.println("*	â– â– â– â– â– â–    â– â– â– â–  â–  â–    â– â–  â–        â– â–  â–      â–      â–     â– â– â– â– â–          *");
 		System.out.println("*                                                                        *");
 		System.out.println("**************************************************************************");
 	}
 	
 	public void Start_Page(){
-		//--------------------½ÃÀÛÈ­¸é---------------------
+		//--------------------ì‹œì‘í™”ë©´---------------------
 		
-		System.out.println("	1. »ç¿ëÀÚ ¼±ÅÃ");
-		System.out.println("	2. »ç¿ëÀÚ »ı¼º");
-		System.out.println("	3. »ç¿ëÀÚ »èÁ¦");
+		System.out.println("	1. ì‚¬ìš©ì ì„ íƒ");
+		System.out.println("	2. ì‚¬ìš©ì ìƒì„±");
+		System.out.println("	3. ì‚¬ìš©ì ì‚­ì œ");
 	}
 	
 	public void User_Select(){
-		//-------------»ç¿ëÀÚ ¼±ÅÃ È­¸é-------------------
+		//-------------ì‚¬ìš©ì ì„ íƒ í™”ë©´-------------------
 		
-		System.out.println("	1. °èÁ¤ »ı¼º");
-		System.out.println("	2. °èÁ¤ »èÁ¦");
+		System.out.println("	1. ê³„ì • ìƒì„±");
+		System.out.println("	2. ê³„ì • ì‚­ì œ");
 		System.out.println("	-----------");
-		System.out.println("	3. ÀÔ±İ");
-		System.out.println("	4. Ãâ±İ");
-		System.out.println("	5. ÃÊÈ¸");
+		System.out.println("	3. ì…ê¸ˆ");
+		System.out.println("	4. ì¶œê¸ˆ");
+		System.out.println("	5. ì´ˆíšŒ");
 		System.out.println("	-----------");
-		System.out.println("	6. ´ëÃâ");
-		System.out.println("	7. ´ëÃâ »óÈ¯");
+		System.out.println("	6. ëŒ€ì¶œ");
+		System.out.println("	7. ëŒ€ì¶œ ìƒí™˜");
 		System.out.println("	--------------");
 		System.out.println("");
-		System.out.println("	½Ã°£ÀÌµ¿");
+		System.out.println("	ì‹œê°„ì´ë™");
 	}
 	
 	public void User_Create(){
-		//---------------------»ç¿ëÀÚ »ı¼º È­¸é-------------------
+		//---------------------ì‚¬ìš©ì ìƒì„± í™”ë©´-------------------
 
-		System.out.println("	ÀºÇà : ");
-		System.out.println("	ÀÌ¸§ : ");
+		System.out.println("	ì€í–‰ : ");
+		System.out.println("	ì´ë¦„ : ");
 		System.out.println("");
-		System.out.println("	»ı¼º°èÁÂ : ");
+		System.out.println("	ìƒì„±ê³„ì¢Œ : ");
 	}
 	
 	public void User_Delete(){
-		//-----------------------»ç¿ëÀÚ »èÁ¦ È­¸é------------------
+		//-----------------------ì‚¬ìš©ì ì‚­ì œ í™”ë©´------------------
 		
 		System.out.println("	");
 		System.out.println("	");
