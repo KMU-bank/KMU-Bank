@@ -1,28 +1,24 @@
 package mainsequence;
 
-import view.View;
-
-import client.Client;
 import client.Clients;
+import view.View;
 
 public class MainSequence {
 	View view = new View();
-	int select;
-
 	int selectedClient;
 	Clients clients = Clients.getInstance();
 
 	public void firstSequence() {
 		while (true) {
 			view.Title();
-			view.Start_Page();
+			int select = view.Start_Page();
 
 			switch (select) {
 			case 1:
-				view.User_Create();
+				clients.createClient(view.User_Create());
 				break;
 			case 2:
-				view.User_Delete(clients);
+				clients.deleteClient(view.User_Delete(clients.clientsList));
 				break;
 			case 3:
 				clientSelectSequance();
@@ -31,7 +27,7 @@ public class MainSequence {
 	}
 
 	public void clientSelectSequance() {
-		int select = view.User_Select();
+		int select = view.User_Select(clients.clientsList);
 		if (select == 0) // 0은 뒤로가기
 			firstSequence();
 		else {
@@ -44,17 +40,8 @@ public class MainSequence {
 		int select = view.Bank_Select();
 		if(select == 0)
 			clientSelectSequance();
-		else if(select == 1){
-			clients.selectBank("KB");
-			
-		}
-		else if(select == 2){
-			clients.selectBank("NH");
-
-		}
-		else if(select == 3){
-			clients.selectBank("woori");
-		}
+		else
+			clients.selectBank(select);
 		
 		if(clients.haveAccount())
 			bankingSeq();
@@ -63,11 +50,13 @@ public class MainSequence {
 	}
 	
 	public void accountErrorSeq(){
-		int select = view.noAccountError();
-		if(select == 0)
+		String select = view.no_Account();
+		if(select == "n")
 			bankSelectSeq();
-		else if(select == 1){
+		else if(select == "y"){
 			view.Acount_Create(clients.selectedClient.getName());
+			bankingSeq();
+			
 		}
 	}
 	
@@ -79,30 +68,30 @@ public class MainSequence {
 				firstSequence();
 				break;
 			case 1:
-				view.Deposit();
+				depositSeq();
 				break;
 			case 2:
-				view.Withdraw();
+				withdrawSeq();
 				break;
 			case 3:
-				view.transfer();
+				transfer();
 				break;
 			case 4:
-				view.state_List();
+				printStateSeq();
 				break;
 			case 5:
-				view.loan();
+				loanSeq();
 				break;
 			case 6:
-				view.repay();
+				repaySeq();
 				break;
 			case 7:
-				view.timeLeap();
+				timeLeapSeq();
 		}
 	}
 		
 		public void depositSeq(){
-			
+			clients.selectedClient.deposit(view.Deposit(clients.selectedClient.getBalance()));
 		}
 		public void withdrawSeq(){
 			
@@ -110,7 +99,7 @@ public class MainSequence {
 		public void transfer(){
 			
 		}
-		public void printSeq(){
+		public void printStateSeq(){
 			
 		}
 		public void loanSeq(){
