@@ -8,6 +8,10 @@ public class Client {
 	Bank bank;
 	String accountNumber;
 	
+	public Client(String Name){ // 생성자
+		name = Name;
+	}
+	
 	public void setAccountNumber(String Num){
 		accountNumber = Num;
 	}
@@ -41,10 +45,7 @@ public class Client {
 	}
 	
 	
-	public Client(String Name, int money){ // 생성자
-		asset = money;
-		name = Name;
-	}
+	
 	public void selectBank(Bank banks){ // 은행 선택
 		bank = banks;
 	}
