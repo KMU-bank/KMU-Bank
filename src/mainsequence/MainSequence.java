@@ -1,30 +1,40 @@
 package mainsequence;
+
 import view.View;
-import java.io.InputStream;
 
 import client.Client;
 
-// Bridge Pattern
-// 추상class View 구현class Client
-// view class는
 public class MainSequence {
 	View view = new View();
-	Client client;
-	InputStream in = new InputStream(new );
+	int select;
 	
-	void sequence(){
-		view.mainview(); // 첫 화면
-		int input = in.nextInt();
-		if(in.nextInt() == 1){
-			view.clientView();
+	Client selectedClient;
+	Clients clients = Clients.getInstance();
+	
+	public void firstSequence(){
+		while(true){
+			view.Title();
+			view.Start_Page();
+			
+			switch(select){
+			case 1:
+				view.User_Create();
+				break;
+			case 2:
+				view.User_Delete(clients);
+				break;
+			case 3:
+				selectedClient = view.User_Select();
+			}
 		}
 	}
 	
-	public static void main(String args[]){
-		MainSequence main = new MainSequence();
-		while(true){
-			main.sequence();
+	public void bankselectSeq(boolean haveAccount){
+		if(haveAccount)
+			view.Banking();
+		else{
+			view.Account_Create();
+			view.Bank_Seleect();
 		}
-		//input = inputstream.nextint();
 	}
 }
