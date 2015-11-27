@@ -51,6 +51,10 @@ public class Bank {
 		account.get(accountNumber).loan(money);
 	}
 	
+	public int getBalance(String accountNumber){
+		return account.get(accountNumber).getBalance();
+	}
+	
 	public void timeFlowYear(){
 		for(int i=0; i<account.size(); i++){
 			account.get(i).deposit((int)(account.get(i).getBalance() * positiveInterest));
