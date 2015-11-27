@@ -25,6 +25,10 @@ public class Account {
 		return balance;
 	}
 	
+	public int getDebt(){
+		return debt;
+	}
+	
 	public LinkedList<String> getStateList(){
 		return stateList;
 	}

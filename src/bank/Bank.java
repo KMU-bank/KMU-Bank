@@ -9,11 +9,13 @@ public class Bank {
 	
 	private HashMap<String, Account> account = new HashMap<String, Account>();
 	public String INIT = "";	//initial account number
-	public double interest = 0.0;
+	public double positiveInterest = 0.0;
+	public double negativeInterest = 0.0;
 	
-	protected Bank(String INIT, double interest){
+	protected Bank(String INIT, double positiveInterest, double negativeInterest){
 		this.INIT = INIT;
-		this.interest = interest;
+		this.positiveInterest = positiveInterest;
+		this.negativeInterest = negativeInterest;
 	}
 	
 	public String openAccount(String name){
@@ -46,5 +48,12 @@ public class Bank {
 	
 	public void loan(String accountNumber, int money){
 		account.get(accountNumber).loan(money);
+	}
+	
+	public void timeFlowYear(){
+		for(int i=0; i<account.size(); i++){
+			account.get(i).deposit((int)(account.get(i).getBalance() * positiveInterest));
+			account.get(i).loan((int)(account.get(i).getDebt() * negativeInterest));
+		}
 	}
 }
