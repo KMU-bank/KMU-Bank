@@ -1,6 +1,7 @@
 package view;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import client.Client;
@@ -114,10 +115,37 @@ public class View {
 		write_money();
 	}
 	
+	public void Transfer(){
+		System.out.println("	계좌번호를 입력해 주세요.");
+		write_acount();
+		System.out.println("	보내실 금액을 입력해주세요.");
+		write_money();
+	}
+	
+	public void State_List(LinkedList<String> stateList){
+		System.out.println("	거래 내역을 출력합니다.");
+		for(int i =0; i<stateList.size(); i++){
+			System.out.println(stateList.get(i));
+		}
+	}
+	
+	public void Loan(){
+		
+	}
+	
+	public void Repay(){
+		
+	}
+	
 	static Scanner sc = new Scanner(System.in);
 	static public int select_Option(){
 		System.out.print("Select Number : ");
 		return sc.nextInt();
+	}
+	
+	public void write_acount(){
+		System.out.print("	계좌번호 : ");
+		sc.next();
 	}
 	
 	public void write_name(){
