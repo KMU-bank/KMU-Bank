@@ -4,10 +4,11 @@ import java.util.HashMap;
 import java.util.Random;
 
 import account.Account;
+import account.Accounts;
 
 public class Bank {
 	
-	private HashMap<String, Account> account = new HashMap<String, Account>();
+	private HashMap<String, Account> account = Accounts.getInstance().accountList;
 	public String INIT = "";	//initial account number
 	public double positiveInterest = 0.0;
 	public double negativeInterest = 0.0;
