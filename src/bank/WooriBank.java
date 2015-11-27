@@ -7,13 +7,7 @@ public class WooriBank extends Bank{
 	private static double positiveInterest = 0.18;
 	private static double negativeInterest = 0.38;
 	
-	private WooriBank(){
+	public WooriBank(){
 		super(INIT, positiveInterest, negativeInterest);
-	}
-	
-	public static Bank getinstance() {
-		if (bank == null)
-			bank = new WooriBank();
-		return bank;
 	}
 }
