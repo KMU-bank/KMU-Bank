@@ -8,7 +8,7 @@ public class Client {
 	Bank bank;
 	String accountNumber;
 	
-	public String GetAccountNumber(){ // 계좌번호 반환
+	public String getAccountNumber(){ // 계좌번호 반환
 		return accountNumber;
 	}
 	public void openAccount(){
@@ -51,13 +51,4 @@ public class Client {
 	public int getAsset(){
 		return asset;
 	}
-	
-	
-	
-	public void transfer_without_bankbook(int money, String transferNum){ // 무통장송금
-		
-	}
-	
-	
-	public void 
 }
