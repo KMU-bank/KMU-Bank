@@ -3,8 +3,7 @@ package bank;
 import java.util.HashMap;
 import java.util.Random;
 
-import account.Account;
-import account.Accounts;
+import account.*;
 
 public class Bank {
 	

@@ -1,17 +1,17 @@
 package client;
 
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import bank.CreateBank;
+import bank.*;
 
 public class Clients {
 	private static Clients clients;
 	public Client selectedClient;
-	CreateBank createBank = new CreateBank();
 	BufferedReader inputStream;
 	PrintWriter outputStream;
 	
@@ -64,8 +64,13 @@ public class Clients {
 		selectedClient = clientsList.get(clientKey);
 	} // client 선택
 	
-	public void selectBank(String bank){
-		selectedClient.selectBank(createBank.createBank(bank));
+	public void selectBank(int whickBank){
+		if(whickBank == 1){
+			selectedClient.selectBank(new KBBank());
+		}else if(whickBank == 2){
+			selectedClient.selectBank(new NHBank());
+		}else
+			selectedClient.selectBank(new WooriBank());
 	}
 	
 	public boolean haveAccount(){
