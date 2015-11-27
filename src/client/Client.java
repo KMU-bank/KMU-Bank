@@ -8,7 +8,7 @@ public class Client {
 	Bank bank;
 	String accountNumber;
 	
-	public void AccountNumber(String Num){
+	public void setAccountNumber(String Num){
 		accountNumber = Num;
 	}
 	public String getAccountNumber(){ // 계좌번호 반환
