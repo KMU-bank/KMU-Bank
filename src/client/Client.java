@@ -3,19 +3,19 @@ package client;
 import bank.Bank;
 
 public class Client {
-	int asset; // ÀºÇà¿¡ ÀÔ±İÇÏÁö ¾ÊÀº ¼ÒÁö±İ
+	int asset; // ì€í–‰ì— ì…ê¸ˆí•˜ì§€ ì•Šì€ ì†Œì§€ê¸ˆ
 	String name;
 	Bank bank;
 	String accountNumber;
 	
-	public String GetAccountNumber(){ // °èÁÂ¹øÈ£ ¹İÈ¯
+	public String GetAccountNumber(){ // ê³„ì¢Œë²ˆí˜¸ ë°˜í™˜
 		return accountNumber;
 	}
-	public void Client(String Name, int money){ // »ı¼ºÀÚ
+	public Client(String Name, int money){ // ìƒì„±ì
 		asset = money;
 		name = Name;
 	}
-	public void selectBank(Bank banks){ // ÀºÇà ¼±ÅÃ
+	public void selectBank(Bank banks){ // ì€í–‰ ì„ íƒ
 		bank = banks;
 	}
 	public String getName(){
@@ -24,9 +24,9 @@ public class Client {
 	public int getAsset(){
 		return asset;
 	}
-	public void deposit(int money){ // ¿¹±İ
+	public void deposit(int money){ // ì˜ˆê¸ˆ
 		if(money < asset){
-			System.out.println("±İ¾×ÀÌ ºÎÁ·ÇÕ´Ï´Ù.");
+			System.out.println("ê¸ˆì•¡ì´ ë¶€ì¡±í•©ë‹ˆë‹¤.");
 			return;
 		}
 		asset -= money;
@@ -35,18 +35,18 @@ public class Client {
 	public void withdraw(int money){
 		if(bank.withdraw(accountNumber, money)){
 			asset += money;
-		} // Ãâ±İ¿¡ ¼º°øÇßÀ»¶§¸¸ ÇöÀçÀÚ»êÀÌ º¯È­ÇÔ
+		} // ì¶œê¸ˆì— ì„±ê³µí–ˆì„ë•Œë§Œ í˜„ì¬ìì‚°ì´ ë³€í™”í•¨
 	}
-	public void transfer(int money){ // ÀÚ±â °èÁÂ¿¡¼­ ¼Û±İ
+	public void transfer(int money){ // ìê¸° ê³„ì¢Œì—ì„œ ì†¡ê¸ˆ
 		
 	}
-	public void transfer_without_bankbook(int money, String transferNum){ // ¹«ÅëÀå¼Û±İ
+	public void transfer_without_bankbook(int money, String transferNum){ // ë¬´í†µì¥ì†¡ê¸ˆ
 		
 	}
 	public void closeAccount(){
-		asset += bank.closeAccount(accountNumber); // °èÁÂ¸¦ Æó¼âÇÏ¸é 
+		asset += bank.closeAccount(accountNumber); // ê³„ì¢Œë¥¼ íì‡„í•˜ë©´ 
 	}
 	public void openAccount(){
-		bank.openAccount(accountNumber, name);
+		bank.openAccount(name);
 	}
 }
