@@ -53,7 +53,7 @@ public class Account {
 	
 	public void loan(int money){
 		debt += money;
-	}
+	}      
 	
 	public void repay(int money){
 		if(withdraw(money))

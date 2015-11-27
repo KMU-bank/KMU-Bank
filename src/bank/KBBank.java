@@ -7,14 +7,7 @@ public class KBBank extends Bank {
 	private static double positiveInterest = 0.21;
 	private static double negativeInterest = 0.41;
 	
-	private KBBank(){
+	public KBBank(){
 		super(INIT, positiveInterest, negativeInterest);
 	}
-
-	public static Bank getinstance() {
-		if (bank == null)
-			bank = new KBBank();
-		return bank;
-	}
-
 }

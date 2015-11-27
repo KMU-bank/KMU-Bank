@@ -7,13 +7,7 @@ public class NHBank extends Bank{
 	private static double positiveInterest = 0.12;
 	private static double negativeInterest = 0.32;
 	
-	private NHBank(){
+	public NHBank(){
 		super(INIT, positiveInterest, negativeInterest);
-	}
-	
-	public static Bank getinstance() {
-		if (bank == null)
-			bank = new NHBank();
-		return bank;
 	}
 }
