@@ -37,6 +37,9 @@ public class Client {
 			asset += money;
 		} // 출금에 성공했을때만 현재자산이 변화함
 	}
+	public int getBalance(){
+		return bank.getBalance(accountNumber);
+	}
 	public void transfer(int money, String accountNumber){ // 자기 계좌에서 송금
 		bank.transfer(this.accountNumber, accountNumber, money);
 	}
