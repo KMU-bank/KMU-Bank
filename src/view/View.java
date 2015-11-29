@@ -99,11 +99,13 @@ public class View {
 		return money;
 	}
 	
-	public void Transfer(){
+	public Object[] Transfer(){
+		Object[] AccountNumberNMoney = new Object[2];
 		System.out.println("	계좌번호를 입력해 주세요.");
-		write_acount();
+		AccountNumberNMoney[0] = write_acount();
 		System.out.println("	보내실 금액을 입력해주세요.");
-		write_money();
+		AccountNumberNMoney[1] = write_money();
+		return AccountNumberNMoney;
 	}
 	
 	public void State_List(LinkedList<String> stateList){
@@ -152,9 +154,9 @@ public class View {
 	
 //------------------------------------------------------------------------------ 기타 기능 함수
 	
-	public void write_acount(){
+	public String write_acount(){
 		System.out.print("	계좌번호 : ");
-		sc.next();
+		return sc.next();
 	}
 	
 	public String write_name(){

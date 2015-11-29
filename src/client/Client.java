@@ -1,5 +1,7 @@
 package client;
 
+import java.util.LinkedList;
+
 import bank.Bank;
 
 public class Client {
@@ -37,6 +39,9 @@ public class Client {
 			asset += money;
 		} // 출금에 성공했을때만 현재자산이 변화함
 	}
+	public int getBalance(){
+		return bank.getBalance(accountNumber);
+	}
 	public void transfer(int money, String accountNumber){ // 자기 계좌에서 송금
 		bank.transfer(this.accountNumber, accountNumber, money);
 	}
@@ -44,7 +49,12 @@ public class Client {
 		bank.loan(accountNumber, money);
 	}
 	
-	
+	public void repayOnAccount(int money){
+		bank.repayOnAccount(accountNumber, money);
+	}
+	public void repay(int money){
+		bank.repay(accountNumber, money);
+	}
 	
 	public void selectBank(Bank banks){ // 은행 선택
 		bank = banks;
@@ -54,5 +64,14 @@ public class Client {
 	}
 	public int getAsset(){
 		return asset;
+	}
+	public LinkedList<String> getStateList(){
+		return bank.getStateList(accountNumber);
+	}
+	public int getDebt(){
+		return bank.getDebt(accountNumber);
+	}
+	public void timeLeap(){
+		bank.timeLeapYear();
 	}
 }

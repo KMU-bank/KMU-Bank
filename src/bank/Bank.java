@@ -1,6 +1,7 @@
 package bank;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Random;
 
 import account.*;
@@ -50,7 +51,27 @@ public class Bank {
 		account.get(accountNumber).loan(money);
 	}
 	
-	public void timeFlowYear(){
+	public int getBalance(String accountNumber){
+		return account.get(accountNumber).getBalance();
+	}
+	
+	public int getDebt(String accountNumber){
+		return account.get(accountNumber).getDebt();
+	}
+	
+	public void repayOnAccount(String accountNumber, int money){
+		account.get(accountNumber).repayOnAccount(money);
+	}
+	
+	public void repay(String accountNumber, int money){
+		account.get(accountNumber).repay(money);
+	}
+	
+	public LinkedList<String> getStateList(String accountNumber){
+		return account.get(accountNumber).getStateList();
+	}
+	
+	public void timeLeapYear(){
 		for(int i=0; i<account.size(); i++){
 			account.get(i).deposit((int)(account.get(i).getBalance() * positiveInterest));
 			account.get(i).loan((int)(account.get(i).getDebt() * negativeInterest));
