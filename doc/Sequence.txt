@@ -1,0 +1,32 @@
+>> class Sequence
+
+멤버변수
+View view = new View();
+int selectedClient;
+Clients clients = Clients.getInstance();
+
+멤버함수
+
+public void firstSequence()
+
+public void clientSelectSequance()
+
+public void bankSelectSeq()
+
+public void accountErrorSeq()
+
+public void bankingSeq()
+
+public void depositSeq()
+
+public void withdrawSeq()
+
+public void transfer()
+
+public void printStateSeq()
+
+public void loanSeq()
+
+public void repaySeq()
+
+public void timeLeapSeq()

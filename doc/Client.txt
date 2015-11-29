@@ -1,0 +1,71 @@
+>> class clinet
+
+멤버변수
+int asset; // 은행에 입금하지 않은 소지금
+String name;
+Bank bank;
+String accountNumber;
+
+멤버함수
+public Client(String Name)
+
+public void setAccountNumber(String Num)
+
+public String getAccountNumber()
+
+public void openAccount()
+
+public void closeAccount()
+
+public void deposit(int money)
+
+public void withdraw(int money)
+
+public int getBalance()
+
+public void transfer(int money, String accountNumber)
+
+public void loan(int money)
+
+public void repayOnAccount(int money)
+
+public void repay(int money)
+
+public void selectBank(Bank banks)
+
+public String getName()
+
+public int getAsset()
+
+public LinkedList<String> getStateList()
+
+public int getDebt()
+
+public void timeLeap()
+
+
+>>Clients
+
+멤버변수
+private static Clients clients;
+public Client selectedClient;
+BufferedReader inputStream;
+PrintWriter outputStream;
+public HashMap<Integer, Client> clientsList;
+
+멤버함수
+public Clients()
+
+public static Clients getInstance()
+
+public void renewFile()
+
+public void createClient(String name)
+
+public void deleteClient(int key)
+
+public void selectClient(int clientKey)
+
+public void selectBank(int whickBank)
+
+public boolean haveAccount()
