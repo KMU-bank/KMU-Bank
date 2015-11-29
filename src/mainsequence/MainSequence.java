@@ -87,6 +87,7 @@ public class MainSequence {
 				break;
 			case 7:
 				timeLeapSeq();
+			}
 		}
 	}
 		
@@ -94,22 +95,24 @@ public class MainSequence {
 			clients.selectedClient.deposit(view.Deposit(clients.selectedClient.getBalance()));
 		}
 		public void withdrawSeq(){
-			
+			clients.selectedClient.withdraw(view.Withdraw(clients.selectedClient.getBalance()));
 		}
 		public void transfer(){
-			
+			Object[] accountNumberNMoney = view.Transfer();
+			clients.selectedClient.transfer((int)accountNumberNMoney[1], (String)accountNumberNMoney[0]);
 		}
 		public void printStateSeq(){
-			
+			view.State_List(clients.selectedClient.getStateList());
 		}
 		public void loanSeq(){
-			
+			clients.selectedClient.loan(view.Loan(clients.selectedClient.getDebt()));
 		}
 		public void repaySeq(){
-			
+			clients.selectedClient.repay(view.Repay(clients.selectedClient.getDebt()));
 		}
 		public void timeLeapSeq(){
-			
+			view.Time_Leap();
+			clients.selectedClient.timeLeap();
 		}
 		
 }

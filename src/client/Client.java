@@ -1,5 +1,7 @@
 package client;
 
+import java.util.LinkedList;
+
 import bank.Bank;
 
 public class Client {
@@ -47,7 +49,12 @@ public class Client {
 		bank.loan(accountNumber, money);
 	}
 	
-	
+	public void repayOnAccount(int money){
+		bank.repayOnAccount(accountNumber, money);
+	}
+	public void repay(int money){
+		bank.repay(accountNumber, money);
+	}
 	
 	public void selectBank(Bank banks){ // 은행 선택
 		bank = banks;
@@ -57,5 +64,14 @@ public class Client {
 	}
 	public int getAsset(){
 		return asset;
+	}
+	public LinkedList<String> getStateList(){
+		return bank.getStateList(accountNumber);
+	}
+	public int getDebt(){
+		return bank.getDebt(accountNumber);
+	}
+	public void timeLeap(){
+		bank.timeLeapYear();
 	}
 }
