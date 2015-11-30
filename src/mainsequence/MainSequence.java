@@ -5,7 +5,6 @@ import view.View;
 
 public class MainSequence {
 	View view = new View();
-	int selectedClient;
 	Clients clients = Clients.getInstance();
 
 	public void firstSequence() {
@@ -38,6 +37,7 @@ public class MainSequence {
 
 	public void bankSelectSeq() {
 		int select = view.Bank_Select();
+		
 		if(select == 0)
 			clientSelectSequance();
 		else
@@ -47,16 +47,17 @@ public class MainSequence {
 			bankingSeq();
 		else
 			accountErrorSeq();
+		
 	}
 	
 	public void accountErrorSeq(){
 		String select = view.no_Account();
-		if(select == "n")
+		if(select.equals("n"))
 			bankSelectSeq();
-		else if(select == "y"){
-			view.Acount_Create(clients.selectedClient.getName());
+		else if(select.equals("y")){
+			view.Acount_Create();
+			clients.selectedClient.openAccount();
 			bankingSeq();
-			
 		}
 	}
 	
