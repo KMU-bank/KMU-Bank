@@ -12,6 +12,7 @@ public class Client {
 	
 	public Client(String Name){ // 생성자
 		name = Name;
+		accountNumber = "0";
 	}
 	
 	public void setAccountNumber(String Num){
@@ -21,7 +22,7 @@ public class Client {
 		return accountNumber;
 	}
 	public void openAccount(){
-		bank.openAccount(name);
+		accountNumber = bank.openAccount(name);
 	}
 	public void closeAccount(){
 		asset += bank.closeAccount(accountNumber); // 계좌를 폐쇄하면 
