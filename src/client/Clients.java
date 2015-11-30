@@ -19,17 +19,6 @@ public class Clients {
 	
 	public Clients(){
 		clientsList = new HashMap<Integer, Client>();
-//		try {
-//			inputStream = new BufferedReader(new FileReader("client.txt"));
-//			outputStream = new PrintWriter(new FileOutputStream("client.txt"));
-//			int data = 0;
-//			 while((data = inputStream.read()) != -1){
-//	        	  outputStream.write(data);
-//	          }
-//		} catch (Exception e) {
-//			System.out.println("exception occured");
-//			e.printStackTrace();
-//		}
 	}
 	
 	
@@ -42,7 +31,7 @@ public class Clients {
 		// 현재 맵에 있는 정보로 파일에 덮어씌움
 	}
 	public void createClient(String name){ // name, key
-		for(int i=0; i<100; i++){
+		for(int i=1; i<100; i++){
 			if(!clientsList.containsKey(i)){
 				clientsList.put(i, new Client(name));
 				break;

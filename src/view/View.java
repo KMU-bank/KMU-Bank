@@ -7,8 +7,8 @@ import java.util.Scanner;
 import client.Client;
 
 public class View {
-	
 	static Scanner sc = new Scanner(System.in);
+	
 
 	public void Title(){
 		System.out.println("***************************************************************************");
@@ -26,52 +26,49 @@ public class View {
 	
 //------------------------------------------------------------------------------ 시작 화면
 	
-	public int Start_Page(){
+	public void Start_Page(){
 		System.out.println("	1. 사용자 생성");
 		System.out.println("	2. 사용자 삭제");
 		System.out.println("	3. 사용자 선택");
-		
-		return select_Option();
+		System.out.print("Select Number : ");
 	}
 	
 	public void User_List(HashMap<Integer, Client> clients){
-		for(int i=0; i<100; i++)
+		for(int i=1; i<100; i++)
 			if(clients.get(i) != null)
 				System.out.println(i + ". " + clients.get(i).getName());
 	}
 		
-	public int User_Select(HashMap<Integer, Client> clients){
+	public void User_Select(HashMap<Integer, Client> clients){
 		System.out.println("	사용자 리스트");
 		User_List(clients);
+		System.out.println("0. 뒤로가기");
 		System.out.print("	사용자 선택 : ");
-		return select_Option();
 	}
 	
-	public String User_Create(){
+	public void User_Create(){
 		System.out.println("	사용자 이름을 입력해주세요.");
 		System.out.print("	사용자 이름 : ");
-		return inputString();
 	}
 	
 //------------------------------------------------------------------------------ 사용자 선택 화면 이후
 
-	public int User_Delete(HashMap<Integer, Client> clients){		
+	public void User_Delete(HashMap<Integer, Client> clients){		
 		System.out.println("	사용자 리스트");
 		User_List(clients);
 		System.out.print("	삭제할 사용자 : ");
-		return select_Option();
+		System.out.print("Select Number : ");
 	}
 	
-	public int Bank_Select(){
+	public void Bank_Select(){
 		System.out.println("	은행을 선택해주세요");
 		System.out.println("	1. KB");
 		System.out.println("	2. NH");
 		System.out.println("	3. SH");
-		
-		return select_Option();
+		System.out.print("Select Number : ");
 	}
 	
-	public int Banking(){
+	public void Banking(){
 		System.out.println("	1. 입금");
 		System.out.println("	2. 출금");
 		System.out.println("	3. 이체");		
@@ -83,34 +80,34 @@ public class View {
 		System.out.println("	7. 계좌 삭제");
 		System.out.println("------------------------");
 		System.out.println("	8. 1년 후...");
-		
-		return select_Option();
+		System.out.print("Select Number : ");
 	}
 	
 //------------------------------------------------------------------------------ 메뉴 함수
-	
-	public int Deposit(int bal){
-		System.out.print("	입금할 금액 : ");
-		int money = inputInt();
-		System.out.println("------------------------------");
-		System.out.println("	현재 잔고 : " + (money + bal));
-		return money;
+	public void currentBalance(int balance){
+		System.out.println("	현재 잔고 : " + balance);
 	}
 	
-	public int Withdraw(int bal){
-		System.out.print("	출금할 금액 : ");
-		int money = inputInt();
+	public void currentDebt(int debt){
 		System.out.println("------------------------------");
-		System.out.println("	현재 잔고 : " + (money + bal));
-		return money;
+		System.out.println("	현재 대출 금액 : " + (debt));
+	}
+	
+	public void Deposit(){
+		System.out.print("	입금할 금액 : ");
+	}
+	
+	
+	public void Withdraw(){
+		System.out.print("	출금할 금액 : ");
 	}
 	
 	public Object[] Transfer(){
 		Object[] AccountNumberNMoney = new Object[2];
 		System.out.print("	계좌번호를 입력해 주세요.\n 계좌번호 : ");
-		AccountNumberNMoney[0] = inputString();
+		AccountNumberNMoney[0] = sc.next();;
 		System.out.println("	보내실 금액을 입력해주세요.");
-		AccountNumberNMoney[1] = inputInt();
+		AccountNumberNMoney[1] = sc.nextInt();
 		return AccountNumberNMoney;
 	}
 	
@@ -121,22 +118,14 @@ public class View {
 		}
 	}
 	
-	public int Loan(int debt){
+	public void Loan(){
 		System.out.println("	대출하실 금액을 입력해 주시기 바랍니다.");
 		System.out.print("	대출 금액 : ");
-		int money = inputInt();
-		System.out.println("------------------------------");
-		System.out.println("	현재 대출 금액 : " + (money + debt));
-		return money;
 	}
 	
-	public int Repay(int debt){
+	public void Repay(){
 		System.out.println("	상환하실 금액을 입력해 주시기 바랍니다.");
 		System.out.print("	상환 금액 : ");
-		int money = inputInt();
-		System.out.println("------------------------------");
-		System.out.println("	현제 대출 금액 : " + (debt-money));
-		return money;
 	}
 	
 	public void Time_Leap(){
@@ -145,9 +134,8 @@ public class View {
 	
 //------------------------------------------------------------------------------ 계정 관련 함수
 	
-	public String no_Account(){
+	public void no_Account(){
 		System.out.print("	계좌가 존재하지 않습니다. 계좌를 생성하시겠습니까? ( y / n ) : ");
-		return inputString();
 	}
 	
 	public void Acount_Create(){
@@ -159,22 +147,5 @@ public class View {
 		System.out.println("	계좌 내의 잔금 " + bal + "원이 자동으로 출금되었습니다.");
 	}
 	
-//------------------------------------------------------------------------------ 기타 기능 함수
-	
-	public int inputInt(){
-		return sc.nextInt();
-	}
-	
-	public String inputString(){
-		return sc.next();
-	}
-	
-	public int select_Option(){
-		System.out.print("Select Number : ");
-		return sc.nextInt();
-	}
-	
-	public void clearScreen(){
-		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-	}
+
 }

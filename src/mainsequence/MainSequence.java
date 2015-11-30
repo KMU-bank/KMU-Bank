@@ -1,23 +1,30 @@
 package mainsequence;
 
+import java.util.Scanner;
+
 import client.Clients;
 import view.View;
 
 public class MainSequence {
 	View view = new View();
 	Clients clients = Clients.getInstance();
+	static Scanner sc = new Scanner(System.in);
 
 	public void firstSequence() {
 		while (true) {
 			view.Title();
-			int select = view.Start_Page();
+			view.Start_Page();
+			int select = select_Option();
+			
 
 			switch (select) {
 			case 1:
-				clients.createClient(view.User_Create());
+				view.User_Create();
+				clients.createClient(inputString());
 				break;
 			case 2:
-				clients.deleteClient(view.User_Delete(clients.clientsList));
+				view.User_Delete(clients.clientsList);
+				clients.deleteClient(select_Option());
 				break;
 			case 3:
 				clientSelectSequance();
@@ -26,7 +33,8 @@ public class MainSequence {
 	}
 
 	public void clientSelectSequance() {
-		int select = view.User_Select(clients.clientsList);
+		view.User_Select(clients.clientsList);
+		int select = select_Option();
 		if (select == 0) // 0은 뒤로가기
 			firstSequence();
 		else {
@@ -36,7 +44,8 @@ public class MainSequence {
 	}
 
 	public void bankSelectSeq() {
-		int select = view.Bank_Select();
+		view.Bank_Select();
+		int select = select_Option();
 		
 		if(select == 0)
 			clientSelectSequance();
@@ -51,7 +60,8 @@ public class MainSequence {
 	}
 	
 	public void accountErrorSeq(){
-		String select = view.no_Account();
+		view.no_Account();
+		String select = inputString();
 		if(select.equals("n"))
 			bankSelectSeq();
 		else if(select.equals("y")){
@@ -63,7 +73,8 @@ public class MainSequence {
 	
 	public void bankingSeq(){
 		while(true){
-			int select = view.Banking();
+			view.Banking();
+			int select = select_Option();
 			switch(select){
 			case 0:
 				firstSequence();
@@ -93,10 +104,16 @@ public class MainSequence {
 	}
 		
 		public void depositSeq(){
-			clients.selectedClient.deposit(view.Deposit(clients.selectedClient.getBalance()));
+			view.Deposit();
+			int money = inputInt();
+			clients.selectedClient.deposit(money);
+			view.currentBalance(clients.selectedClient.getBalance());
 		}
 		public void withdrawSeq(){
-			clients.selectedClient.withdraw(view.Withdraw(clients.selectedClient.getBalance()));
+			view.Withdraw();
+			int money = inputInt();
+			clients.selectedClient.withdraw(money);
+			view.currentBalance(clients.selectedClient.getBalance());
 		}
 		public void transfer(){
 			Object[] accountNumberNMoney = view.Transfer();
@@ -106,14 +123,37 @@ public class MainSequence {
 			view.State_List(clients.selectedClient.getStateList());
 		}
 		public void loanSeq(){
-			clients.selectedClient.loan(view.Loan(clients.selectedClient.getDebt()));
+			view.Loan();
+			int money = inputInt();
+			clients.selectedClient.loan(money);
+			view.currentDebt(clients.selectedClient.getDebt());
 		}
 		public void repaySeq(){
-			clients.selectedClient.repay(view.Repay(clients.selectedClient.getDebt()));
+			view.Repay();
+			int money = inputInt();
+			clients.selectedClient.repay(money);
+			view.currentDebt(clients.selectedClient.getDebt());
 		}
 		public void timeLeapSeq(){
 			view.Time_Leap();
 			clients.selectedClient.timeLeap();
 		}
 		
+//------------------------------------------------------------------------------ 기타 기능 함수
+		
+		public int inputInt(){
+			return sc.nextInt();
+		}
+		
+		public String inputString(){
+			return sc.next();
+		}
+		
+		public int select_Option(){
+			return sc.nextInt();
+		}
+		
+		public void clearScreen(){
+			System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		}
 }
