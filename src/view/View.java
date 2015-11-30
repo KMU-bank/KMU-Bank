@@ -11,7 +11,6 @@ public class View {
 	static Scanner sc = new Scanner(System.in);
 
 	public void Title(){
-		clearScreen();
 		System.out.println("***************************************************************************");
 		System.out.println("*                                                                         *");
 		System.out.println("*       ■■■■■■                 ■       ■■ ■           ■ ■         ■       *");
@@ -147,12 +146,12 @@ public class View {
 //------------------------------------------------------------------------------ 계정 관련 함수
 	
 	public String no_Account(){
-		System.out.print("	계좌가 존재하지 않습니다. 계좌를 생성하시겠습니까? ( y / n ) ");
+		System.out.print("	계좌가 존재하지 않습니다. 계좌를 생성하시겠습니까? ( y / n ) : ");
 		return inputString();
 	}
 	
-	public void Acount_Create(String s){
-		System.out.println("	생성된 계좌는 " + s + " 입니다.");
+	public void Acount_Create(){
+		System.out.println("	계좌가 생성되었습니다.");
 	}
 	
 	public void Acount_Delete(int bal){
