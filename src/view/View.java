@@ -11,6 +11,7 @@ public class View {
 	static Scanner sc = new Scanner(System.in);
 
 	public void Title(){
+		clearScreen();
 		System.out.println("***************************************************************************");
 		System.out.println("*                                                                         *");
 		System.out.println("*       ■■■■■■                 ■       ■■ ■           ■ ■         ■       *");
@@ -26,15 +27,21 @@ public class View {
 	
 //------------------------------------------------------------------------------ 시작 화면
 	
-	public int Start_Page(){		
-		System.out.println("	1. 사용자 선택");
-		System.out.println("	2. 사용자 생성");
-		System.out.println("	3. 사용자 삭제");
+	public int Start_Page(){
+		System.out.println("	1. 사용자 생성");
+		System.out.println("	2. 사용자 삭제");
+		System.out.println("	3. 사용자 선택");
 		
 		return select_Option();
 	}
+	
+	public void User_List(HashMap<Integer, Client> clients){
+		for(int i=0; i<100; i++)
+			if(clients.get(i) != null)
+				System.out.println(i + ". " + clients.get(i).getName());
+	}
 		
-	public int User_Select(HashMap<Integer, Client> clients){		
+	public int User_Select(HashMap<Integer, Client> clients){
 		System.out.println("	사용자 리스트");
 		User_List(clients);
 		System.out.print("	사용자 선택 : ");
@@ -44,7 +51,7 @@ public class View {
 	public String User_Create(){
 		System.out.println("	사용자 이름을 입력해주세요.");
 		System.out.print("	사용자 이름 : ");
-		return write_name();
+		return inputString();
 	}
 	
 //------------------------------------------------------------------------------ 사용자 선택 화면 이후
@@ -85,7 +92,7 @@ public class View {
 	
 	public int Deposit(int bal){
 		System.out.print("	입금할 금액 : ");
-		int money = write_money();
+		int money = inputInt();
 		System.out.println("------------------------------");
 		System.out.println("	현재 잔고 : " + (money + bal));
 		return money;
@@ -93,7 +100,7 @@ public class View {
 	
 	public int Withdraw(int bal){
 		System.out.print("	출금할 금액 : ");
-		int money = write_money();
+		int money = inputInt();
 		System.out.println("------------------------------");
 		System.out.println("	현재 잔고 : " + (money + bal));
 		return money;
@@ -101,10 +108,10 @@ public class View {
 	
 	public Object[] Transfer(){
 		Object[] AccountNumberNMoney = new Object[2];
-		System.out.println("	계좌번호를 입력해 주세요.");
-		AccountNumberNMoney[0] = write_acount();
+		System.out.print("	계좌번호를 입력해 주세요.\n 계좌번호 : ");
+		AccountNumberNMoney[0] = inputString();
 		System.out.println("	보내실 금액을 입력해주세요.");
-		AccountNumberNMoney[1] = write_money();
+		AccountNumberNMoney[1] = inputInt();
 		return AccountNumberNMoney;
 	}
 	
@@ -118,7 +125,7 @@ public class View {
 	public int Loan(int debt){
 		System.out.println("	대출하실 금액을 입력해 주시기 바랍니다.");
 		System.out.print("	대출 금액 : ");
-		int money = write_money();
+		int money = inputInt();
 		System.out.println("------------------------------");
 		System.out.println("	현재 대출 금액 : " + (money + debt));
 		return money;
@@ -127,7 +134,7 @@ public class View {
 	public int Repay(int debt){
 		System.out.println("	상환하실 금액을 입력해 주시기 바랍니다.");
 		System.out.print("	상환 금액 : ");
-		int money = write_money();
+		int money = inputInt();
 		System.out.println("------------------------------");
 		System.out.println("	현제 대출 금액 : " + (debt-money));
 		return money;
@@ -139,8 +146,9 @@ public class View {
 	
 //------------------------------------------------------------------------------ 계정 관련 함수
 	
-	public void no_Account(){
-		System.out.println("	계좌가 존재하지 않습니다. 계좌를 생성하시겠습니까? ( y / n )");
+	public String no_Account(){
+		System.out.print("	계좌가 존재하지 않습니다. 계좌를 생성하시겠습니까? ( y / n ) ");
+		return inputString();
 	}
 	
 	public void Acount_Create(String s){
@@ -154,27 +162,20 @@ public class View {
 	
 //------------------------------------------------------------------------------ 기타 기능 함수
 	
-	public String write_acount(){
-		System.out.print("	계좌번호 : ");
-		return sc.next();
-	}
-	
-	public String write_name(){
-		System.out.print("	이름 : ");
-		return sc.next();
-	}
-	
-	public int write_money(){
+	public int inputInt(){
 		return sc.nextInt();
 	}
 	
-	public void User_List(HashMap<Integer, Client> clients){
-		for(int i=0; i<clients.size(); i++)
-			System.out.println(i + ". " + clients.get(i).getName());
+	public String inputString(){
+		return sc.next();
 	}
 	
-	static public int select_Option(){
+	public int select_Option(){
 		System.out.print("Select Number : ");
 		return sc.nextInt();
+	}
+	
+	public void clearScreen(){
+		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 	}
 }

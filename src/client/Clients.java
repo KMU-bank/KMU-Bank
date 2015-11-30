@@ -18,6 +18,7 @@ public class Clients {
 	public HashMap<Integer, Client> clientsList;
 	
 	public Clients(){
+		clientsList = new HashMap<Integer, Client>();
 		try {
 			inputStream = new BufferedReader(new FileReader("client.txt"));
 			outputStream = new PrintWriter(new FileOutputStream("client.txt"));
