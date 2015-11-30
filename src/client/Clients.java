@@ -19,17 +19,17 @@ public class Clients {
 	
 	public Clients(){
 		clientsList = new HashMap<Integer, Client>();
-		try {
-			inputStream = new BufferedReader(new FileReader("client.txt"));
-			outputStream = new PrintWriter(new FileOutputStream("client.txt"));
-			int data = 0;
-			 while((data = inputStream.read()) != -1){
-	        	  outputStream.write(data);
-	          }
-		} catch (Exception e) {
-			System.out.println("exception occured");
-			e.printStackTrace();
-		}
+//		try {
+//			inputStream = new BufferedReader(new FileReader("client.txt"));
+//			outputStream = new PrintWriter(new FileOutputStream("client.txt"));
+//			int data = 0;
+//			 while((data = inputStream.read()) != -1){
+//	        	  outputStream.write(data);
+//	          }
+//		} catch (Exception e) {
+//			System.out.println("exception occured");
+//			e.printStackTrace();
+//		}
 	}
 	
 	
@@ -65,19 +65,18 @@ public class Clients {
 		selectedClient = clientsList.get(clientKey);
 	} // client 선택
 	
-	public void selectBank(int whickBank){
-		if(whickBank == 1){
+	public void selectBank(int whichBank){
+		if(whichBank == 1){
 			selectedClient.selectBank(new KBBank());
-		}else if(whickBank == 2){
+		}else if(whichBank == 2){
 			selectedClient.selectBank(new NHBank());
 		}else
 			selectedClient.selectBank(new WooriBank());
 	}
 	
 	public boolean haveAccount(){
-		if(selectedClient.getAccountNumber() == "0"){
+		if(selectedClient.getAccountNumber() == "0")
 			return false;
-		}else
-			return true;
+		return true;
 	}
 }
