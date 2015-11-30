@@ -1,49 +1,48 @@
-´Ô¿¬ºÀÀÌ?Á¶
+ë‹˜ì—°ë´‰ì´?ì¡°
 banKMU
 
-java»ç¿ë 
+javaì‚¬ìš© 
 
-Å¬·¡½º
+í´ëž˜ìŠ¤
 Bank
 Account 
 Client
 
-°¢ Å¬·¡½º°£ÀÇ °ü°è
+ê° í´ëž˜ìŠ¤ê°„ì˜ ê´€ê³„
 
-Bank´Â ÀºÇà, Client´Â °í°´ÀÌ´Ù.
-Client´Â ÀºÇàÀÇ °í°´À¸·Î¼­ ÀÔ/Ãâ±ÝµîÀÇ ¼­ºñ½º¸¦ ÀºÇà¿¡ ¿äÃ»ÇÑ´Ù.
-Bank´Â ClientÀÇ ¿äÃ»À» ¹Þ¾Æ ÀºÇàÀÇ ¼­ºñ½º¸¦ Á¦°øÇÑ´Ù.
-Account´Â Bank¿¡¼­ ClientÀÇ Á¤º¸¸¦ ÀúÀåÇÏ±â À§ÇØ °ü¸®ÇÏ´Â °´Ã¼ÀÌ´Ù.
-Bank´Â °¢ ClientÀÇ AccountÀÎ½ºÅÏ½º¸¦ Map¿¡ ³Ö¾î °ü¸®ÇÑ´Ù. ClientÀÇ ¿äÃ»À» ¼öÇàÇÒ ¶§ Client
-¿¡°Ô¼­ ÀÚ½ÅÀÇ °èÁÂ¹øÈ£¸¦ Àü´Þ¹Þ¾Æ ±× °èÁÂ¹øÈ£¸¦ MapÀÇ Å°·Î ÀÌ¿ëÇØ ÂüÁ¶ÇÑ´Ù.
+BankëŠ” ì€í–‰, ClientëŠ” ê³ ê°ì´ë‹¤.
+ClientëŠ” ì€í–‰ì˜ ê³ ê°ìœ¼ë¡œì„œ ìž…/ì¶œê¸ˆë“±ì˜ ì„œë¹„ìŠ¤ë¥¼ ì€í–‰ì— ìš”ì²­í•œë‹¤.
+BankëŠ” Clientì˜ ìš”ì²­ì„ ë°›ì•„ ì€í–‰ì˜ ì„œë¹„ìŠ¤ë¥¼ ì œê³µí•œë‹¤.
+AccountëŠ” Bankì—ì„œ Clientì˜ ì •ë³´ë¥¼ ì €ìž¥í•˜ê¸° ìœ„í•´ ê´€ë¦¬í•˜ëŠ” ê°ì²´ì´ë‹¤.
+BankëŠ” ê° Clientì˜ Accountì¸ìŠ¤í„´ìŠ¤ë¥¼ Mapì— ë„£ì–´ ê´€ë¦¬í•œë‹¤. Clientì˜ ìš”ì²­ì„ ìˆ˜í–‰í•  ë•Œ Client
+ì—ê²Œì„œ ìžì‹ ì˜ ê³„ì¢Œë²ˆí˜¸ë¥¼ ì „ë‹¬ë°›ì•„ ê·¸ ê³„ì¢Œë²ˆí˜¸ë¥¼ Mapì˜ í‚¤ë¡œ ì´ìš©í•´ ì°¸ì¡°í•œë‹¤.
 
-ÀÎÅÍÆäÀÌ½º
-ÀÚ¹Ù ÄÜ¼Ö·Î ±¸ÇöµÇ¸ç ¸Å´º¾ó¿¡ µû¶ó ¸î °³ÀÇ È­¸éÀ¸·Î ±¸¼ºµÈ´Ù.
-ÃÖ»óÀ§ È­¸éÀº Client ¼±ÅÃÃ¢ÀÌ¸ç »õ·Î¿î Client¸¦ »ý¼ºÇÏ´Â °Íµµ °¡´ÉÇÏ´Ù.
-ClientÁß ÇÏ³ª¸¦ ¼±ÅÃÇÏ¸é Á¸ÀçÇÏ´Â ¼¼ °³ÀÇ ÀºÇà Áß ¾î¶² ÀºÇàÀ» ¼±ÅÃÇÒÁö °áÁ¤ÇÒ ¼ö ÀÖ´Ù.
-ÀºÇàÀ» ¼±ÅÃÇß´Ù¸é ÀºÇà¿¡¼­ Á¦°øÇÏ´Â ±â´ÉÀÌ ³ª¿­µÈ È­¸éÀÌ µîÀåÇÑ´Ù.
-ÀÌ¶§ Client¿¡°Ô ÇØ´ç ÀºÇàÀÇ Account°¡ ¾ø´Ù¸é account¸¦ Á¦°ø¹ÞÀ»Áö °áÁ¤ÇÏ´Â È­¸éÀÌ Á¸ÀçÇÑ´Ù.
-ÀÌ¹Ì Account°¡ Á¸ÀçÇÑ´Ù¸é ÇØ´ç ÀºÇà¿¡¼­ Á¦°ø¹ÞÀ» ¼ö ÀÖ´Â ±â´Éµé(ÀÔ,Ãâ±Ýµî)ÀÌ µîÀåÇÑ´Ù.
+ì¸í„°íŽ˜ì´ìŠ¤
+ìžë°” ì½˜ì†”ë¡œ êµ¬í˜„ë˜ë©° ë§¤ë‰´ì–¼ì— ë”°ë¼ ëª‡ ê°œì˜ í™”ë©´ìœ¼ë¡œ êµ¬ì„±ëœë‹¤.
+ìµœìƒìœ„ í™”ë©´ì€ Client ì„ íƒì°½ì´ë©° ìƒˆë¡œìš´ Clientë¥¼ ìƒì„±í•˜ëŠ” ê²ƒë„ ê°€ëŠ¥í•˜ë‹¤.
+Clientì¤‘ í•˜ë‚˜ë¥¼ ì„ íƒí•˜ë©´ ì¡´ìž¬í•˜ëŠ” ì„¸ ê°œì˜ ì€í–‰ ì¤‘ ì–´ë–¤ ì€í–‰ì„ ì„ íƒí• ì§€ ê²°ì •í•  ìˆ˜ ìžˆë‹¤.
+ì€í–‰ì„ ì„ íƒí–ˆë‹¤ë©´ ì€í–‰ì—ì„œ ì œê³µí•˜ëŠ” ê¸°ëŠ¥ì´ ë‚˜ì—´ëœ í™”ë©´ì´ ë“±ìž¥í•œë‹¤.
+ì´ë•Œ Clientì—ê²Œ í•´ë‹¹ ì€í–‰ì˜ Accountê°€ ì—†ë‹¤ë©´ accountë¥¼ ì œê³µë°›ì„ì§€ ê²°ì •í•˜ëŠ” í™”ë©´ì´ ì¡´ìž¬í•œë‹¤.
+ì´ë¯¸ Accountê°€ ì¡´ìž¬í•œë‹¤ë©´ í•´ë‹¹ ì€í–‰ì—ì„œ ì œê³µë°›ì„ ìˆ˜ ìžˆëŠ” ê¸°ëŠ¥ë“¤(ìž…,ì¶œê¸ˆë“±)ì´ ë“±ìž¥í•œë‹¤.
 
 
 Bank class
-¸â¹öÇÔ¼ö
-deposit(±Ý¾×, °èÁÂ¹øÈ£) : ±Ý¾×°ú Æ¯Á¤ ClientÀÇ °èÁÂ¹øÈ£¸¦ ÀÔ·Â ¹Þ¾Æ ÇØ´ç Account¿¡ ÀÔ±ÝÇÑ´Ù.
-DepositWithoutBankbook(±Ý¾×, »ó´ë¹æ ) : ¹«ÅëÀå ÀÔ±ÝÀ¸·Î¼­ ³» °èÁÂÀÇ ±Ý¾×ÀÌ ºüÁ®³ª°¡´Â°ÍÀÌ ¾Æ´Ï¶ó ÇöÀç ¼ÒÁö±Ý¿¡¼­ ±Ý¾×ÀÌ ºüÁ®³ª°£´Ù.
+ë©¤ë²„í•¨ìˆ˜
+deposit(ê¸ˆì•¡, ê³„ì¢Œë²ˆí˜¸) : ê¸ˆì•¡ê³¼ íŠ¹ì • Clientì˜ ê³„ì¢Œë²ˆí˜¸ë¥¼ ìž…ë ¥ ë°›ì•„ í•´ë‹¹ Accountì— ìž…ê¸ˆí•œë‹¤.
+DepositWithoutBankbook(ê¸ˆì•¡, ìƒëŒ€ë°© ) : ë¬´í†µìž¥ ìž…ê¸ˆìœ¼ë¡œì„œ ë‚´ ê³„ì¢Œì˜ ê¸ˆì•¡ì´ ë¹ ì ¸ë‚˜ê°€ëŠ”ê²ƒì´ ì•„ë‹ˆë¼ í˜„ìž¬ ì†Œì§€ê¸ˆì—ì„œ ê¸ˆì•¡ì´ ë¹ ì ¸ë‚˜ê°„ë‹¤.
 
 
 
 Client class
-¸â¹öº¯¼ö
-	AccountNum : ÀºÇà¿¡ Account¸¦ °³¼³ÇÒ ¶§ ºÎ¿© ¹ÞÀº °èÁÂ¹øÈ£
-	¼ÒÁö±Ý¾× : ÀºÇà¿¡ ÀÔ±ÝÇÏÁö ¾ÊÀº ÇöÀç ¼ÒÁö±Ý¾×
-	Income : 1³â´ç ¼öÀÔ
-¸â¹öÇÔ¼ö
+ë©¤ë²„ë³€ìˆ˜
+	AccountNum : ì€í–‰ì— Accountë¥¼ ê°œì„¤í•  ë•Œ ë¶€ì—¬ ë°›ì€ ê³„ì¢Œë²ˆí˜¸
+	ì†Œì§€ê¸ˆì•¡ : ì€í–‰ì— ìž…ê¸ˆí•˜ì§€ ì•Šì€ í˜„ìž¬ ì†Œì§€ê¸ˆì•¡
+	Income : 1ë…„ë‹¹ ìˆ˜ìž…
+ë©¤ë²„í•¨ìˆ˜
 	
 Account
-¸â¹öº¯¼ö
-	Balance : Account¿¡ ÀúÀåµÈ ÇöÀç±Ý¾×
-	loan : ÇöÀç ´ëÃâ¹ÞÀº ±Ý¾×. ´Ã 0ÀÌ»ó
-	Balance_interest : ¿¹±ÝÀÌÀÚÀ²
-	Loan_interest : ´ëÃâÀÌÀÚÀ²
-
+ë©¤ë²„ë³€ìˆ˜
+	Balance : Accountì— ì €ìž¥ëœ í˜„ìž¬ê¸ˆì•¡
+	loan : í˜„ìž¬ ëŒ€ì¶œë°›ì€ ê¸ˆì•¡. ëŠ˜ 0ì´ìƒ
+	Balance_interest : ì˜ˆê¸ˆì´ìžìœ¨
+	Loan_interest : ëŒ€ì¶œì´ìžìœ¨
