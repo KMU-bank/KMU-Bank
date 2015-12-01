@@ -43,7 +43,7 @@ public class Client {
 	public int getBalance(){
 		return bank.getBalance(accountNumber);
 	}
-	public void transfer(int money, String accountNumber){ // 자기 계좌에서 송금
+	public void transfer(String accountNumber, int money){ // 자기 계좌에서 송금
 		bank.transfer(this.accountNumber, accountNumber, money);
 	}
 	public void loan(int money){ // money : 빌릴 돈
