@@ -1,5 +1,6 @@
 package mainsequence;
 
+import java.io.FileOutputStream;
 import java.util.Scanner;
 
 import client.Clients;
@@ -8,152 +9,202 @@ import view.View;
 public class MainSequence {
 	View view = new View();
 	Clients clients = Clients.getInstance();
-	static Scanner sc = new Scanner(System.in);
+	Scanner sc = new Scanner(System.in);
 
 	public void firstSequence() {
 		while (true) {
-			view.Title();
-			view.Start_Page();
-			int select = select_Option();
-			
-
-			switch (select) {
-			case 1:
-				view.User_Create();
-				clients.createClient(inputString());
-				break;
-			case 2:
-				view.User_Delete(clients.clientsList);
-				clients.deleteClient(select_Option());
-				break;
-			case 3:
-				clientSelectSequance();
+			view.title();
+			view.initialPage();
+			try {
+				int select = sc.nextInt();
+				
+				switch (select) {
+				case 1:
+					view.createUser();
+					clients.createClient(sc.next());
+					break;
+				case 2:
+					view.deleteUser(clients.clientsList);
+					clients.deleteClient(sc.nextInt());
+					break;
+				case 3:
+					clientSelectSequance();
+				}
+			} catch (Exception e) {
+				System.out.println("숫자만 입력하세요.");
+				sc.next();
 			}
-		}
+		} // while
 	}
 
 	public void clientSelectSequance() {
-		view.User_Select(clients.clientsList);
-		int select = select_Option();
-		if (select == 0) // 0은 뒤로가기
-			firstSequence();
-		else {
-			clients.selectClient(select);
-			bankSelectSeq();
+		view.selectUser(clients.clientsList);
+		try {
+			int select = sc.nextInt();
+
+			if (select == 0) // 0은 뒤로가기
+				firstSequence();
+			else {
+				clients.selectClient(select);
+				bankSelectSeq();
+			}
+		} catch (Exception e) {
+			System.out.println("숫자만 입력하세요.");
+			sc.next();
+			clientSelectSequance();
 		}
 	}
 
 	public void bankSelectSeq() {
-		view.Bank_Select();
-		int select = select_Option();
-		
-		if(select == 0)
-			clientSelectSequance();
-		else
-			clients.selectBank(select);
-		
-		if(clients.haveAccount())
-			bankingSeq();
-		else
-			accountErrorSeq();
-		
-	}
-	
-	public void accountErrorSeq(){
-		view.no_Account();
-		String select = inputString();
-		if(select.equals("n"))
+		view.selectBank();
+		try {
+			int select = sc.nextInt();
+
+			if (select == 0)
+				clientSelectSequance();
+			else
+				clients.selectBank(select);
+
+			if (clients.haveAccount())
+				bankingSeq();
+			else
+				accountErrorSeq();
+		} catch (Exception e) {
+			System.out.println("숫자만 입력하세요.");
+			sc.next();
 			bankSelectSeq();
-		else if(select.equals("y")){
-			view.Acount_Create();
-			clients.selectedClient.openAccount();
-			bankingSeq();
 		}
 	}
-	
-	public void bankingSeq(){
-		while(true){
-			view.Banking();
-			int select = select_Option();
-			switch(select){
-			case 0:
-				firstSequence();
-				break;
-			case 1:
-				depositSeq();
-				break;
-			case 2:
-				withdrawSeq();
-				break;
-			case 3:
-				transfer();
-				break;
-			case 4:
-				printStateSeq();
-				break;
-			case 5:
-				loanSeq();
-				break;
-			case 6:
-				repaySeq();
-				break;
-			case 7:
-				timeLeapSeq();
+
+	public void accountErrorSeq() {
+		view.noAccount();
+		String select = sc.next();
+
+		if (select.equals("n"))
+			bankSelectSeq();
+		else if (select.equals("y")) {
+			view.createAccount();
+			clients.selectedClient.openAccount();
+			bankingSeq();
+		} else {
+			System.out.println("n 또는 y 를 입력하세요.");
+			accountErrorSeq();
+		}
+	}
+
+	public void bankingSeq() {
+		while (true) {
+			view.banking();
+			try {
+				int select = sc.nextInt();
+
+				switch (select) {
+				case 0:
+					firstSequence();
+					break;
+				case 1:
+					depositSeq();
+					break;
+				case 2:
+					withdrawSeq();
+					break;
+				case 3:
+					transfer();
+					break;
+				case 4:
+					printStateSeq();
+					break;
+				case 5:
+					loanSeq();
+					break;
+				case 6:
+					repaySeq();
+					break;
+				case 7:
+					timeLeapSeq();
+				}
+			} catch (Exception e) {
+				System.out.println("숫자만 입력하세요.");
+				sc.next();
+				bankingSeq();
 			}
 		}
 	}
-		
-		public void depositSeq(){
-			view.Deposit();
-			int money = inputInt();
+
+	public void depositSeq() {
+		view.deposit();
+		try {
+			int money = sc.nextInt();
 			clients.selectedClient.deposit(money);
 			view.currentBalance(clients.selectedClient.getBalance());
+		} catch (Exception e) {
+			System.out.println("숫자만 입력하세요.");
+			sc.next();
+			depositSeq();
 		}
-		public void withdrawSeq(){
-			view.Withdraw();
-			int money = inputInt();
+	}
+
+	public void withdrawSeq() {
+		view.withdraw();
+		try {
+			int money = sc.nextInt();
 			clients.selectedClient.withdraw(money);
 			view.currentBalance(clients.selectedClient.getBalance());
+		} catch (Exception e) {
+			System.out.println("숫자만 입력하세요.");
+			sc.next();
+			withdrawSeq();
 		}
-		public void transfer(){
-			Object[] accountNumberNMoney = view.Transfer();
-			clients.selectedClient.transfer((int)accountNumberNMoney[1], (String)accountNumberNMoney[0]);
+	}
+
+	public void transfer() {
+		view.transferAccountNumber();
+		String accountNumber = sc.next();
+		view.transferMoney();
+		while (true) {
+			try {
+				int money = sc.nextInt();
+				clients.selectedClient.transfer(accountNumber, money);
+				break;
+			} catch (Exception e) {
+				System.out.println("숫자만 입력하세요.");
+				sc.next();
+			}
 		}
-		public void printStateSeq(){
-			view.State_List(clients.selectedClient.getStateList());
-		}
-		public void loanSeq(){
-			view.Loan();
-			int money = inputInt();
+	}
+
+	public void printStateSeq() {
+		view.printStateList(clients.selectedClient.getStateList());
+	}
+
+	public void loanSeq() {
+		view.loan();
+		try {
+			int money = sc.nextInt();
 			clients.selectedClient.loan(money);
 			view.currentDebt(clients.selectedClient.getDebt());
+		} catch (Exception e) {
+			System.out.println("숫자만 입력하세요.");
+			sc.next();
+			loanSeq();
 		}
-		public void repaySeq(){
-			view.Repay();
-			int money = inputInt();
+	}
+
+	public void repaySeq() {
+		view.repay();
+		try {
+			int money = sc.nextInt();
 			clients.selectedClient.repay(money);
 			view.currentDebt(clients.selectedClient.getDebt());
+		} catch (Exception e) {
+			System.out.println("숫자만 입력하세요.");
+			sc.next();
+			repaySeq();
 		}
-		public void timeLeapSeq(){
-			view.Time_Leap();
-			clients.selectedClient.timeLeap();
-		}
-		
-//------------------------------------------------------------------------------ 기타 기능 함수
-		
-		public int inputInt(){
-			return sc.nextInt();
-		}
-		
-		public String inputString(){
-			return sc.next();
-		}
-		
-		public int select_Option(){
-			return sc.nextInt();
-		}
-		
-		public void clearScreen(){
-			System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-		}
+	}
+
+	public void timeLeapSeq() {
+		view.timeLeap();
+		clients.selectedClient.timeLeap();
+	}
 }
