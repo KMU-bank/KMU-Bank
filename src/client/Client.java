@@ -35,6 +35,8 @@ public class Client {
 		asset -= money;
 		bank.deposit(accountNumber, money);
 	}
+	
+	
 	public void withdraw(int money){
 		if(bank.withdraw(accountNumber, money)){
 			asset += money;

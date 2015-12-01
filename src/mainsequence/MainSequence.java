@@ -158,13 +158,13 @@ public class MainSequence {
 	}
 
 	public void transfer() {
-		view.transferAccountNumber();
-		String accountNumber = sc.next();
-		view.transferMoney();
 		while (true) {
 			try {
+				view.transferAccountNumber();
+				String accountNumber = sc.next();
+				view.transferMoney();
 				int money = sc.nextInt();
-				clients.selectedClient.transfer(accountNumber, money);
+				clients.selectedClient.transfer(money, accountNumber);
 				break;
 			} catch (Exception e) {
 				System.out.println("숫자만 입력하세요.");
