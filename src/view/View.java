@@ -105,7 +105,7 @@ public class View {
 	public Object[] Transfer(){
 		Object[] AccountNumberNMoney = new Object[2];
 		System.out.print("	계좌번호를 입력해 주세요.\n 계좌번호 : ");
-		AccountNumberNMoney[0] = sc.next();;
+		AccountNumberNMoney[0] = sc.next();
 		System.out.println("	보내실 금액을 입력해주세요.");
 		AccountNumberNMoney[1] = sc.nextInt();
 		return AccountNumberNMoney;
