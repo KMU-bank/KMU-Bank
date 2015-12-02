@@ -77,9 +77,9 @@ public class Bank {
 	}
 	
 	public void timeLeapYear(){
-		for(int i=0; i<account.size(); i++){
-			account.get(i).deposit((int)(account.get(i).getBalance() * positiveInterest));
-			account.get(i).loan((int)(account.get(i).getDebt() * negativeInterest));
+		for(String key: account.keySet()){
+			account.get(key).deposit((int)(account.get(key).getBalance() * positiveInterest));
+			account.get(key).loan((int)(account.get(key).getDebt() * negativeInterest));
 		}
 	}
 }

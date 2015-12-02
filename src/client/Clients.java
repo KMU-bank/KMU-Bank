@@ -8,27 +8,27 @@ public class Clients {
 	public Client selectedClient;
 	public HashMap<Integer, Client> clientsList;
 	
-	public Clients(){
+	private Clients(){
 		clientsList = new HashMap<Integer, Client>();
 	}
-	
 	
 	public static Clients getInstance(){
 		if(clients == null)
 			clients = new Clients();
 		return clients;
 	}
+	
 	public void createClient(String name){ // name, key
-		for(int i=1; i<100; i++){
+		for(int i=1; i<100; i++)
 			if(!clientsList.containsKey(i)){
 				clientsList.put(i, new Client(name));
-				break;
+				return;
 			}
-		}
 	}
 	
 	public void deleteClient(int key){
-		clientsList.remove(key);
+		if(clientsList.containsKey(key))
+			clientsList.remove(key);
 	}
 	
 	public void selectClient(int clientKey){
