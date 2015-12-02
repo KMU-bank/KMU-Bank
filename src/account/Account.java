@@ -17,7 +17,7 @@ public class Account {
 		this.balance = 0;
 	}
 	
-	public String getName(String name){
+	public String getName(){
 		return name;
 	}
 	
@@ -35,20 +35,20 @@ public class Account {
 	
 	public void deposit(int money){
 		balance += money;
-		stateList.add("deposit : " +  money + " balance : " + balance);
+		stateList.add("입금 : " +  money + " 잔고 : " + balance);
 	}
 	
 	public boolean withdraw(int money){
 		if(balance < money)
 			return false;
 		balance -= money;
-		stateList.add("withdraw : " +  money + " balance : " + balance);
+		stateList.add("출금 : " +  money + " 잔고 : " + balance);
 		return true;
 	}
 	
 	public void transfer(String accountNumber, int money){
 		withdraw(money);
-		stateList.add("account Number : " + accountNumber + "  " + money + " balance : " + balance);
+		stateList.add("계좌번호 : " + accountNumber + "  " + money + " 잔고 : " + balance);
 	}
 	
 	public void loan(int money){
@@ -56,12 +56,12 @@ public class Account {
 	}      
 	
 	public void repay(int money){
-		if(withdraw(money))
 			debt -= money;
 	}
 	
 	public void repayOnAccount(int money){
-		debt -= money;
+		if(withdraw(money))
+			debt -= money;
 	}
 	
 	public boolean makeCard(){
@@ -76,8 +76,12 @@ public class Account {
 		stolen = true;
 	}
 	
-	public boolean useCard(String accountNumber, String state, int money){
-		if(!haveCard || !stolen)
+	public void findReport(){
+		stolen = false;
+	}
+	
+	public boolean useCard(String state, int money){
+		if(!haveCard || stolen)
 			return false;
 		
 		balance -= money;
