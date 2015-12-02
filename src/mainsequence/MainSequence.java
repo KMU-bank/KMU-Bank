@@ -163,14 +163,9 @@ public class MainSequence {
 				try {
 				view.transferMoney();
 				int money = sc.nextInt();
-				if(clients == null)
-					System.out.println("clients NULL");
-				if (clients.selectedClient == null)
-					System.out.println("selected Cl NULL");
 				clients.selectedClient.transfer(accountNumber, money);
 				break;
 			} catch (Exception e) {
-				System.err.println(e);
 				System.out.println("숫자만 입력하세요.");
 				sc.next();
 			}
