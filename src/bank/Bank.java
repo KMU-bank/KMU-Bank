@@ -13,7 +13,7 @@ public class Bank {
 	public double positiveInterest = 0.0;
 	public double negativeInterest = 0.0;
 	
-	protected Bank(String INIT, double positiveInterest, double negativeInterest){
+	public Bank(String INIT, double positiveInterest, double negativeInterest){
 		this.INIT = INIT;
 		this.positiveInterest = positiveInterest;
 		this.negativeInterest = negativeInterest;
@@ -43,8 +43,13 @@ public class Bank {
 	}//false -> stay client money & print out on console
 	
 	public void transfer(String from, String to, int money){
+		try{
 		account.get(from).withdraw(money);
 		account.get(to).deposit(money);
+		} catch(Exception e){
+			account.get(from).deposit(money);
+			System.out.println("없는 계좌번호 입니다.");
+		}
 	}
 	
 	public void loan(String accountNumber, int money){
