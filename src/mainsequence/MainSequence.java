@@ -1,6 +1,5 @@
 package mainsequence;
 
-import java.io.FileOutputStream;
 import java.util.Scanner;
 
 import client.Clients;
@@ -109,7 +108,7 @@ public class MainSequence {
 					withdrawSeq();
 					break;
 				case 3:
-					transfer();
+					transferSeq();
 					break;
 				case 4:
 					printStateSeq();
@@ -157,16 +156,21 @@ public class MainSequence {
 		}
 	}
 
-	public void transfer() {
+	public void transferSeq() {
 		while (true) {
-			try {
 				view.transferAccountNumber();
 				String accountNumber = sc.next();
+				try {
 				view.transferMoney();
 				int money = sc.nextInt();
-				clients.selectedClient.transfer(money, accountNumber);
+				if(clients == null)
+					System.out.println("clients NULL");
+				if (clients.selectedClient == null)
+					System.out.println("selected Cl NULL");
+				clients.selectedClient.transfer(accountNumber, money);
 				break;
 			} catch (Exception e) {
+				System.err.println(e);
 				System.out.println("숫자만 입력하세요.");
 				sc.next();
 			}
