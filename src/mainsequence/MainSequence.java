@@ -177,8 +177,8 @@ public class MainSequence {
 
 	public void printStateSeq() {
 		view.printStateList(clients.selectedClient.getStateList());
-		System.out.println("확인 후 아무 키나 누르시오");
 		try {
+			System.out.println("확인 후 아무 키나 누르시오");
 			System.in.read();
 		} catch (IOException e) {}
 	}
