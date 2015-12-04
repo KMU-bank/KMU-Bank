@@ -59,7 +59,7 @@ public class View {
 		System.out.println("은행을 선택해주세요");
 		System.out.println("1. KB");
 		System.out.println("2. NH");
-		System.out.println("3. SH");
+		System.out.println("3. Woori");
 		System.out.print(" Select Number : ");
 	}
 	
