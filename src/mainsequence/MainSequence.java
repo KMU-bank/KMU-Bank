@@ -3,6 +3,9 @@ package mainsequence;
 import java.io.IOException;
 import java.util.Scanner;
 
+import account.Account;
+import bank.*;
+import client.Client;
 import client.Clients;
 import view.View;
 
@@ -10,6 +13,11 @@ public class MainSequence {
 	View view = new View();
 	Clients clients = Clients.getInstance();
 	Scanner sc = new Scanner(System.in);
+	
+	Client selectedClient;
+	Bank selectedBank;
+	Account selectedAccount;
+	
 
 	public static void main(String args[]){
 		MainSequence seq = new MainSequence();
@@ -34,7 +42,7 @@ public class MainSequence {
 				case 2:
 					view.screenClear();
 					view.title();
-					view.deleteUser(clients.clientsList);
+					view.deleteUser(clients.clientList);
 					clients.deleteClient(sc.nextInt());
 					break;
 				case 3:
@@ -51,7 +59,7 @@ public class MainSequence {
 
 //----------------------------------------------------- 시작화면 -> 3.사용자 선택화면
 	public void clientSelectSequance() {
-		view.selectUser(clients.clientsList);
+		view.selectUser(clients.clientList);
 		try {
 			int select = sc.nextInt();
 
@@ -60,7 +68,7 @@ public class MainSequence {
 			else {
 				view.screenClear();
 				view.title();				
-				clients.selectClient(select);
+				selectedClient = clients.clientList.get(select);
 				bankSelectSeq();
 			}
 		} catch (Exception e) {
@@ -74,20 +82,17 @@ public class MainSequence {
 	public void bankSelectSeq() {
 		view.selectBank();
 		try {
-			int selectedBank = sc.nextInt();
-
-			if (selectedBank == 0){
+			int select = sc.nextInt();
+			
+			if (select == 0){
 				view.screenClear();
 				view.title();
 				clientSelectSequance();
 			}
-			else{
-				view.screenClear();
-				view.title();
-				clients.selectBank(selectedBank);
-			}
+			
+			selectedBank = findBank(select);
 
-			if (clients.haveAccount()){
+			if (clients.haveAccount(selectedBank, selectedClient)){
 				view.screenClear();
 				view.title();
 				bankingSeq();
@@ -97,6 +102,7 @@ public class MainSequence {
 				view.title();
 				accountErrorSeq();
 			}
+			
 		} catch (Exception e) {
 			System.out.println("숫자만 입력하세요.");
 			sc.next();
@@ -118,7 +124,7 @@ public class MainSequence {
 			view.screenClear();
 			view.title();
 			view.createAccount();
-			clients.selectedClient.openAccount();
+			selectedClient.openAccount(selectedBank);
 			bankingSeq();
 		} else {
 			System.out.println("n 또는 y 를 입력하세요.");
@@ -188,10 +194,10 @@ public class MainSequence {
 		view.deposit();
 		try {
 			int money = sc.nextInt();
-			clients.selectedClient.deposit(money);
+			selectedClient.deposit(selectedBank, money);
 			view.screenClear();
 			view.title();
-			view.currentBalance(clients.selectedClient.getBalance());
+			view.currentBalance(selectedClient.getBalance(selectedBank));
 		} catch (Exception e) {
 			System.out.println("숫자만 입력하세요.");
 			sc.next();
@@ -205,10 +211,10 @@ public class MainSequence {
 			int money = sc.nextInt();
 			view.screenClear();
 			view.title();
-			if(!clients.selectedClient.withdraw(money)){
+			if(!selectedClient.withdraw(selectedBank, money)){
 				System.out.println("금액부족으로 출금에 실패했습니다");
 			}
-			view.currentBalance(clients.selectedClient.getBalance());
+			view.currentBalance(selectedClient.getBalance(selectedBank));
 			try {
 				System.out.println("확인 후 아무 키나 누르시오");
 				System.in.read();
@@ -227,7 +233,7 @@ public class MainSequence {
 				try {
 				view.transferMoney();
 				int money = sc.nextInt();
-				clients.selectedClient.transfer(accountNumber, money);
+				selectedClient.transfer(selectedBank, accountNumber, money);
 				break;
 			} catch (Exception e) {
 				System.out.println("숫자만 입력하세요.");
@@ -237,8 +243,8 @@ public class MainSequence {
 	}
 
 	public void printStateSeq() {
-		System.out.println("계좌번호 : " + clients.selectedClient.getAccountNumber());
-		view.printStateList(clients.selectedClient.getStateList());
+		System.out.println("계좌번호 : " + selectedClient.getAccountNumber(selectedBank));
+		view.printStateList(selectedClient.getStateList(selectedBank));
 		try {
 			System.out.println("확인 후 아무 키나 누르시오");
 			System.in.read();
@@ -251,10 +257,10 @@ public class MainSequence {
 		view.loan();
 		try {
 			int money = sc.nextInt();
-			clients.selectedClient.loan(money);
+			selectedClient.loan(selectedBank, money);
 			view.screenClear();
 			view.title();
-			view.currentDebt(clients.selectedClient.getDebt());
+			view.currentDebt(selectedClient.getDebt(selectedBank));
 		} catch (Exception e) {
 			System.out.println("숫자만 입력하세요.");
 			sc.next();
@@ -266,10 +272,10 @@ public class MainSequence {
 		view.repay();
 		try {
 			int money = sc.nextInt();
-			clients.selectedClient.repay(money);
+			selectedClient.repay(selectedBank, money);
 			view.screenClear();
 			view.title();
-			view.currentDebt(clients.selectedClient.getDebt());
+			view.currentDebt(selectedClient.getDebt(selectedBank));
 		} catch (Exception e) {
 			System.out.println("숫자만 입력하세요.");
 			sc.next();
@@ -279,11 +285,20 @@ public class MainSequence {
 
 	public void timeLeapSeq() {
 		view.timeLeap();
-		clients.selectedClient.timeLeap();
+		selectedClient.timeLeap(selectedBank);
 	}
 	public void deleteBank(){
-		clients.selectedClient.deleteBank();
+		selectedClient.closeAccount(selectedBank);
 		System.out.println("해당 은행의 계좌가 삭제되었습니다");
 		bankSelectSeq();
+	}
+	
+	public Bank findBank(int select){
+		if(select == 1)
+			return new KBBank();
+		else if(select == 2)
+			return new NHBank();
+		else
+			return new WooriBank();
 	}
 }
