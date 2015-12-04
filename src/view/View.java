@@ -67,7 +67,7 @@ public class View {
 		System.out.println("1. 입금");
 		System.out.println("2. 출금");
 		System.out.println("3. 이체");		
-		System.out.println("4. 조회");
+		System.out.println("4. 조회(잔액, 대출금, 거래내역)");
 		System.out.println("------------------------");
 		System.out.println("5. 대출");
 		System.out.println("6. 대출 상환");

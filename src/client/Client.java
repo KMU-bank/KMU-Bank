@@ -37,10 +37,13 @@ public class Client {
 		return true;
 	}
 	
-	public void withdraw(int money){
+	public boolean withdraw(int money){
 		if(bank.withdraw(accountNumber, money)){
-			asset += money;
-		} // 출금에 성공했을때만 현재자산이 변화함
+			asset += money; // 출금에 성공했을때만 현재자산이 변화함
+			return true;
+		} else{
+			return false;
+		}
 	}
 	
 	public void loan(int money){ // money : 빌릴 돈
@@ -91,7 +94,7 @@ public class Client {
 	}
 	
 	public void deleteBank(){
-		bank.deleteAccount(accountNumber);
+		bank.closeAccount(accountNumber);
 		accountNumber = "0";
 	}
 

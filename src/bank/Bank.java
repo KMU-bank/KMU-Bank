@@ -82,7 +82,4 @@ public class Bank {
 			account.get(key).loan((int)(account.get(key).getDebt() * negativeInterest));
 		}
 	}
-	public void deleteAccount(String AccountNumber){
-		account.remove(AccountNumber);
-	}
 }

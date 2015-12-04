@@ -148,8 +148,14 @@ public class MainSequence {
 		view.withdraw();
 		try {
 			int money = sc.nextInt();
-			clients.selectedClient.withdraw(money);
+			if(!clients.selectedClient.withdraw(money)){
+				System.out.println("금액부족으로 출금에 실패했습니다");
+			}
 			view.currentBalance(clients.selectedClient.getBalance());
+			try {
+				System.out.println("확인 후 아무 키나 누르시오");
+				System.in.read();
+			} catch (IOException e) {}
 		} catch (Exception e) {
 			System.out.println("숫자만 입력하세요.");
 			sc.next();
@@ -174,6 +180,7 @@ public class MainSequence {
 	}
 
 	public void printStateSeq() {
+		System.out.println("계좌번호 : " + clients.selectedClient.getAccountNumber());
 		view.printStateList(clients.selectedClient.getStateList());
 		try {
 			System.out.println("확인 후 아무 키나 누르시오");
