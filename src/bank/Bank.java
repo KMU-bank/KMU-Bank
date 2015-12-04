@@ -44,7 +44,7 @@ public class Bank {
 		Account selectedAccount = account.get(accountNumber);
 		boolean isDone =  selectedAccount.deposit(money);
 		if(isDone)
-			selectedAccount.addStateList("입 : " + money + " 잔액 : " + selectedAccount.getBalance());
+			selectedAccount.addStateList("입급 : " + money + " 잔액 : " + selectedAccount.getBalance());
 		return isDone;
 	}
 	

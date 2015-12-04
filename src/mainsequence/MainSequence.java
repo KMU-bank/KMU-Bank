@@ -2,7 +2,6 @@ package mainsequence;
 
 import java.io.IOException;
 import java.util.Scanner;
-
 import account.Account;
 import bank.*;
 import client.Client;
