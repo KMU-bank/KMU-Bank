@@ -89,5 +89,10 @@ public class Client {
 	public LinkedList<String> getStateList(){
 		return bank.getStateList(accountNumber);
 	}
+	
+	public void deleteBank(){
+		bank.deleteAccount(accountNumber);
+		accountNumber = "0";
+	}
 
 }

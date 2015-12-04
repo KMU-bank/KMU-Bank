@@ -1,5 +1,6 @@
 package mainsequence;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import client.Clients;
@@ -57,12 +58,12 @@ public class MainSequence {
 	public void bankSelectSeq() {
 		view.selectBank();
 		try {
-			int select = sc.nextInt();
+			int selectedBank = sc.nextInt();
 
-			if (select == 0)
+			if (selectedBank == 0)
 				clientSelectSequance();
 			else
-				clients.selectBank(select);
+				clients.selectBank(selectedBank);
 
 			if (clients.haveAccount())
 				bankingSeq();
@@ -120,6 +121,8 @@ public class MainSequence {
 					repaySeq();
 					break;
 				case 7:
+					deleteBank();
+				case 8:
 					timeLeapSeq();
 				}
 			} catch (Exception e) {
@@ -174,6 +177,10 @@ public class MainSequence {
 
 	public void printStateSeq() {
 		view.printStateList(clients.selectedClient.getStateList());
+		System.out.println("확인 후 아무 키나 누르시오");
+		try {
+			System.in.read();
+		} catch (IOException e) {}
 	}
 
 	public void loanSeq() {
@@ -205,5 +212,10 @@ public class MainSequence {
 	public void timeLeapSeq() {
 		view.timeLeap();
 		clients.selectedClient.timeLeap();
+	}
+	public void deleteBank(){
+		clients.selectedClient.deleteBank();
+		System.out.println("해당 은행의 계좌가 삭제되었습니다");
+		bankSelectSeq();
 	}
 }
