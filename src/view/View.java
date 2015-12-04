@@ -84,8 +84,8 @@ public class View {
 	}
 	
 	public void currentDebt(int debt){
-		System.out.println("------------------------------");
 		System.out.println("현재 대출 금액 : " + (debt));
+		System.out.println("------------------------------");
 	}
 	
 	public void deposit(){
