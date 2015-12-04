@@ -140,4 +140,11 @@ public class View {
 		System.out.println("계좌를 삭제합니다.");
 		System.out.println("계좌 내의 잔금 " + bal + "원이 자동으로 출금되었습니다.");
 	}
+	
+//------------------------------------------------------------------------------ 화면 밀어내기 ( cls )
+	
+	public void screenClear(){
+		for(int i=0; i < 80; i++)
+			System.out.println("");
+	}
 }

@@ -11,6 +11,11 @@ public class MainSequence {
 	Clients clients = Clients.getInstance();
 	Scanner sc = new Scanner(System.in);
 
+	public static void main(String args[]){
+		MainSequence seq = new MainSequence();
+		seq.firstSequence();
+	}
+	
 	public void firstSequence() {
 		while (true) {
 			view.title();
