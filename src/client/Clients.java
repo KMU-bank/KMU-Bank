@@ -5,7 +5,6 @@ import bank.*;
 
 public class Clients {
 	private static Clients clients;
-	public Client selectedClient;
 	public HashMap<Integer, Client> clientsList;
 	
 	private Clients(){
@@ -31,21 +30,8 @@ public class Clients {
 			clientsList.remove(key);
 	}
 	
-	public void selectClient(int clientKey){
-		selectedClient = clientsList.get(clientKey);
-	} // client 선택
-	
-	public void selectBank(int whichBank){
-		if(whichBank == 1){
-			selectedClient.selectBank(new KBBank());
-		}else if(whichBank == 2){
-			selectedClient.selectBank(new NHBank());
-		}else
-			selectedClient.selectBank(new WooriBank());
-	}
-	
-	public boolean haveAccount(){
-		if(selectedClient.getAccountNumber() == "0")
+	public boolean haveAccount(Bank bank, Client client){
+		if(client.getAccountNumber(bank) == "0")
 			return false;
 		return true;
 	}

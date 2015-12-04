@@ -7,91 +7,82 @@ import bank.*;
 public class Client {
 	private int asset; // 은행에 입금하지 않은 소지금
 	private String name;
-	private Bank bank;
-	private String selectedAccount;
-	private String[] accountNumbers = new String[3];
+	private String KBBankAccountNumber;
+	private String NHBankAccountNumber;
+	private String WooriBankAccountNumber;
 	
 	public Client(String Name){ // 생성자
 		name = Name;
 		asset = 2000000;	//	기본 소지금
-		selectedAccount = "0";
-		accountNumbers[0] = "0";
-		accountNumbers[1] = "0";
-		accountNumbers[2] = "0";
+		KBBankAccountNumber = "0";
+		NHBankAccountNumber = "0";
+		WooriBankAccountNumber = "0";
 	}
 	
-	public void selectBank(Bank banks){ // 은행 선택
-		bank = banks;
-		
+	public void openAccount(Bank bank){
 		if(bank.getClass() == KBBank.class)
-			selectedAccount = accountNumbers[0];
+			KBBankAccountNumber = bank.openAccount(name);
 		else if(bank.getClass() == NHBank.class)
-			selectedAccount = accountNumbers[1];
-		else if(bank.getClass() == WooriBank.class)
-			selectedAccount = accountNumbers[2];
+			NHBankAccountNumber = bank.openAccount(name);
+		else if(bank.getClass() == NHBank.class)
+			WooriBankAccountNumber = bank.openAccount(name);
 	}
 	
-	public void openAccount(){
-		selectedAccount = bank.openAccount(name);
-		
-		if(bank.getClass() == KBBank.class)
-			accountNumbers[0] = selectedAccount;
-		else if(bank.getClass() == NHBank.class)
-			accountNumbers[1] = selectedAccount;
-		else if(bank.getClass() == NHBank.class)
-			accountNumbers[2] = selectedAccount;
+	public void closeAccount(Bank bank){
+			asset += bank.closeAccount(getAccountNumber(bank));
 	}
 	
-	public void closeAccount(){
-		asset += bank.closeAccount(selectedAccount); // 계좌를 폐쇄하면 
-	}
-	
-	public boolean deposit(int money){ // 예금
+	public boolean deposit(Bank bank, int money){ // 예금
 		if(money > asset)
 			return false;
 		asset -= money;
-		bank.deposit(selectedAccount, money);
+		bank.deposit(getAccountNumber(bank), money);
 		return true;
 	}
 	
-	public boolean withdraw(int money){
-		if(bank.withdraw(selectedAccount, money)){
-			asset += money; // 출금에 성공했을때만 현재자산이 변화함
-			return true;
-		} else{
+	public boolean withdraw(Bank bank, int money){
+		if(!bank.withdraw(getAccountNumber(bank), money))
 			return false;
-		}
+		asset += money; // 출금에 성공했을때만 현재자산이 변화함
+		return true;
 	}
 	
-	public void loan(int money){ // money : 빌릴 돈
-		bank.loan(selectedAccount, money);
+	public void loan(Bank bank, int money){ // money : 빌릴 돈
+		bank.loan(getAccountNumber(bank), money);
 		this.asset += money;
 	}
 	
-	public void repay(int money){
-		bank.repay(selectedAccount, money);
+	public boolean repay(Bank bank, int money){
+		if(asset < money)
+			return false;
+		bank.repay(getAccountNumber(bank), money);
 		asset -= money;
+		return true;
 	}
 	
-	public void repayOnAccount(int money){
-		bank.repayOnAccount(selectedAccount, money);
+	public boolean repayOnAccount(Bank bank, int money){
+		return bank.repayOnAccount(getAccountNumber(bank), money);
 	}
 	
-	public void transfer(String selectedAccount, int money){ // 자기 계좌에서 송금
-		bank.transfer(this.selectedAccount, selectedAccount, money);
+	public void transfer(Bank bank, String toAccount, int money){ // 자기 계좌에서 송금
+		bank.transfer(getAccountNumber(bank), toAccount, money);
 	}
 	
-	public void timeLeap(){
+	public void timeLeap(Bank bank){
 		bank.timeLeapYear();
 	}
 	
 	/*			getter & setter			*/
-	public String getAccountNumber(){ // 계좌번호 반환
-		return selectedAccount;
+	public String getAccountNumber(Bank bank){
+		if(bank.getClass() == KBBank.class)
+			return KBBankAccountNumber;
+		else if(bank.getClass() == NHBank.class)
+			return NHBankAccountNumber;
+		return WooriBankAccountNumber;
 	}
 	
-	public int getBalance(){
-		return bank.getBalance(selectedAccount);
+	public int getBalance(Bank bank){
+		return bank.getBalance(getAccountNumber(bank));
 	}
 	
 	public String getName(){
@@ -102,17 +93,12 @@ public class Client {
 		return asset;
 	}
 	
-	public int getDebt(){
-		return bank.getDebt(selectedAccount);
+	public int getDebt(Bank bank){
+		return bank.getDebt(getAccountNumber(bank));
 	}
 	
-	public LinkedList<String> getStateList(){
-		return bank.getStateList(selectedAccount);
+	public LinkedList<String> getStateList(Bank bank){
+		return bank.getStateList(getAccountNumber(bank));
 	}
 	
-	public void deleteBank(){
-		bank.closeAccount(selectedAccount);
-		selectedAccount = "0";
-	}
-
 }
