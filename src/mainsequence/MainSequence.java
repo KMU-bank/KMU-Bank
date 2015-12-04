@@ -96,11 +96,10 @@ public class MainSequence {
 		while (true) {
 			view.banking();
 			try {
-				int select = sc.nextInt();
-
+				int select = Integer.parseInt(sc.next());
 				switch (select) {
 				case 0:
-					firstSequence();
+					bankSelectSeq();
 					break;
 				case 1:
 					depositSeq();
@@ -127,7 +126,6 @@ public class MainSequence {
 				}
 			} catch (Exception e) {
 				System.out.println("숫자만 입력하세요.");
-				sc.next();
 				bankingSeq();
 			}
 		}
