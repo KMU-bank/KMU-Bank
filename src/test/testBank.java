@@ -37,6 +37,6 @@ public class testBank {
 		assertEquals(38000, bank.getBalance(accountNumber));
 		
 		bank.timeLeapYear();
-		assertEquals((int)(50000 * 1.21), bank.getBalance(accountNumber));
+		assertEquals((int)(38000 * 1.21), bank.getBalance(accountNumber));
 	}
 }
