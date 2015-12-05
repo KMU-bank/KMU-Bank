@@ -5,7 +5,7 @@ import bank.*;
 
 public class Clients {
 	private static Clients clients;
-	public HashMap<Integer, Client> clientList;
+	private HashMap<Integer, Client> clientList;
 
 	private Clients() {
 		clientList = new HashMap<Integer, Client>();
@@ -15,6 +15,10 @@ public class Clients {
 		if (clients == null)
 			clients = new Clients();
 		return clients;
+	}
+	
+	public HashMap<Integer, Client> getClientList(){
+		return clientList;
 	}
 
 	public Client getClient(int key) {
@@ -35,7 +39,7 @@ public class Clients {
 	}
 
 	public boolean haveAccount(Bank bank, Client client) {
-		if (client.getAccountNumber(bank) == "0")
+		if (client.getAccountNumber(bank).equals("0"))
 			return false;
 		return true;
 	}

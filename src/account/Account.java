@@ -1,8 +1,9 @@
 package account;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class Account {
+public class Account implements Serializable {
 	private String accountNumber;
 	private String name;
 	private int balance;
@@ -18,6 +19,11 @@ public class Account {
 	}
 
 	// getter & setter...
+
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+
 	public String getName() {
 		return name;
 	}

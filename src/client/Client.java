@@ -1,10 +1,11 @@
 package client;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 import bank.*;
 
-public class Client {
+public class Client implements Serializable{
 	private int asset; // 은행에 입금하지 않은 소지금
 	private String name;
 	private String KBBankAccountNumber;

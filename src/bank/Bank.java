@@ -8,7 +8,7 @@ import account.*;
 
 public class Bank {
 
-	private HashMap<String, Account> account = Accounts.getInstance().accountList;
+	private HashMap<String, Account> account = Accounts.getInstance().getAccountList();
 	public String INIT = ""; // initial account number
 	public double positiveInterest = 0.0;
 	public double negativeInterest = 0.0;

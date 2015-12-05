@@ -1,11 +1,16 @@
 package mainsequence;
 
-import java.io.IOException;
 import java.util.Scanner;
+
 import account.Account;
-import bank.*;
+import account.Accounts;
+import bank.Bank;
+import bank.KBBank;
+import bank.NHBank;
+import bank.WooriBank;
 import client.Client;
 import client.Clients;
+import data.FileIO;
 import view.View;
 
 public class MainSequence {
@@ -16,6 +21,11 @@ public class MainSequence {
 	Client selectedClient;
 	Bank selectedBank;
 	Account selectedAccount;
+	
+	static{
+		FileIO.restoreClientsFromFile(Clients.getInstance().getClientList());
+		FileIO.restoreAccountsFromFile(Accounts.getInstance().getAccountList());
+	}
 
 	public void firstSequence() {
 		while (true) {
@@ -27,6 +37,10 @@ public class MainSequence {
 				int select = sc.nextInt();
 
 				switch (select) {
+				case 0:
+					FileIO.backUpClientsOnFile(Clients.getInstance().getClientList());
+					FileIO.backUpAccountsOnFile(Accounts.getInstance().getAccountList());
+					break;
 				case 1:
 					view.screenClear();
 					view.title();
@@ -37,7 +51,7 @@ public class MainSequence {
 				case 2:
 					view.screenClear();
 					view.title();
-					view.deleteUser(clients.clientList);
+					view.deleteUser(clients.getClientList());
 					clients.deleteClient(sc.nextInt());
 					break;
 				case 3:
@@ -54,7 +68,7 @@ public class MainSequence {
 	public void clientSelectSequance() {
 		view.screenClear();
 		view.title();
-		view.selectUser(clients.clientList);
+		view.selectUser(clients.getClientList());
 
 		try {
 			int select = sc.nextInt();
@@ -62,7 +76,7 @@ public class MainSequence {
 			if (select == 0) // 0은 뒤로가기
 				firstSequence();
 			else {
-				selectedClient = clients.clientList.get(select);
+				selectedClient = clients.getClientList().get(select);
 				bankSelectSeq();
 			}
 		} catch (Exception e) {
@@ -86,7 +100,6 @@ public class MainSequence {
 				clientSelectSequance();
 
 			selectedBank = findBank(select);
-
 			if (clients.haveAccount(selectedBank, selectedClient))
 				bankingSeq();
 			else
