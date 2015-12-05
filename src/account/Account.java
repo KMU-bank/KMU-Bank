@@ -63,7 +63,7 @@ public class Account {
 	}      
 	
 	public boolean repay(int money){
-		if(debt <= money)
+		if(debt < money)
 			return false;
 		debt -= money;
 		return true;
