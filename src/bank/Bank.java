@@ -20,10 +20,11 @@ public class Bank {
 	}
 	
 	public String openAccount(String name){
-		String accountNumber = INIT + new Random().nextInt(99999);
+		String accountNumber = INIT + (new Random().nextInt(89999) + 10000);
+		
 		while(true)
 			if(account.containsKey(accountNumber))
-				accountNumber = INIT + new Random().nextInt(99999);
+				accountNumber = INIT + (new Random().nextInt(89999) + 10000);
 			else
 				break;
 		
@@ -43,16 +44,18 @@ public class Bank {
 	public boolean deposit(String accountNumber, int money){
 		Account selectedAccount = account.get(accountNumber);
 		boolean isDone =  selectedAccount.deposit(money);
-		if(isDone)
-			selectedAccount.addStateList("입급 : " + money + " 잔액 : " + selectedAccount.getBalance());
+		if(isDone && money > 0)
+			selectedAccount.addStateList("입금 : " + money + " 잔액 : " + selectedAccount.getBalance());
 		return isDone;
 	}
 	
 	public boolean withdraw(String accountNumber, int money){
 		Account selectedAccount = account.get(accountNumber);
-		boolean isDone =  selectedAccount.withdraw(money);
-		if(isDone)
+		boolean isDone = selectedAccount.withdraw(money); 
+		
+		if(!isDone)
 			selectedAccount.addStateList("출금 : " + money + " 잔액 : " + selectedAccount.getBalance());
+
 		return isDone;
 	}//false -> stay client money & print out on console
 	
@@ -101,7 +104,7 @@ public class Bank {
 	public void repay(String accountNumber, int money){
 		Account selectedAccount = account.get(accountNumber);
 		selectedAccount.repay(money);
-		selectedAccount.addStateList("대출상환금액 : " + money + "남은 대출금 : " + selectedAccount.getDebt());
+		selectedAccount.addStateList("대출상환금 : " + money + " 남은 대출금 : " + selectedAccount.getDebt());
 	}
 	
 	public LinkedList<String> getStateList(String accountNumber){
@@ -110,8 +113,13 @@ public class Bank {
 	
 	public void timeLeapYear(){
 		for(String key: account.keySet()){
-			account.get(key).deposit((int)(account.get(key).getBalance() * positiveInterest));
-			account.get(key).loan((int)(account.get(key).getDebt() * negativeInterest));
+			Account selectedAccount = account.get(key);
+			
+			selectedAccount.deposit((int)(selectedAccount.getBalance() * positiveInterest));
+			selectedAccount.addStateList("예금 이자 : " + selectedAccount.getBalance() * positiveInterest);
+			
+			selectedAccount.loan((int)(selectedAccount.getDebt() * negativeInterest));
+			selectedAccount.addStateList("대출 이자 : " + selectedAccount.getDebt() * negativeInterest);
 		}
 	}
 }
