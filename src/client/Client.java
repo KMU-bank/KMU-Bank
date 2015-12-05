@@ -19,13 +19,13 @@ public class Client {
 		WooriBankAccountNumber = "0";
 	}
 	
-	public void openAccount(Bank bank){
+	public String openAccount(Bank bank){
 		if(bank.getClass() == KBBank.class)
-			KBBankAccountNumber = bank.openAccount(name);
+			return KBBankAccountNumber = bank.openAccount(name);
 		else if(bank.getClass() == NHBank.class)
-			NHBankAccountNumber = bank.openAccount(name);
-		else if(bank.getClass() == NHBank.class)
-			WooriBankAccountNumber = bank.openAccount(name);
+			return NHBankAccountNumber = bank.openAccount(name);
+		else
+			return WooriBankAccountNumber = bank.openAccount(name);
 	}
 	
 	public void closeAccount(Bank bank){
@@ -36,13 +36,19 @@ public class Client {
 		if(money > asset)
 			return false;
 		asset -= money;
-		bank.deposit(getAccountNumber(bank), money);
+		if(!bank.deposit(getAccountNumber(bank), money))
+			System.out.println("입금 실패!");
 		return true;
 	}
 	
 	public boolean withdraw(Bank bank, int money){
-		if(!bank.withdraw(getAccountNumber(bank), money))
+		if(money <= 0){
+			System.out.println("출금 실패!");
+			return true;
+		}
+		else if(!bank.withdraw(getAccountNumber(bank), money))
 			return false;
+		
 		asset += money; // 출금에 성공했을때만 현재자산이 변화함
 		return true;
 	}
@@ -64,8 +70,8 @@ public class Client {
 		return bank.repayOnAccount(getAccountNumber(bank), money);
 	}
 	
-	public void transfer(Bank bank, String toAccount, int money){ // 자기 계좌에서 송금
-		bank.transfer(getAccountNumber(bank), toAccount, money);
+	public boolean transfer(Bank bank, String toAccount, int money){ // 자기 계좌에서 송금
+		return bank.transfer(getAccountNumber(bank), toAccount, money);
 	}
 	
 	public void timeLeap(Bank bank){
