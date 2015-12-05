@@ -1,13 +1,15 @@
 package view;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import bank.Bank;
 import client.Client;
 
 public class View {
 
-	public void title(){
+	public void OriginalTitle(){
 		System.out.println("***************************************************************************");
 		System.out.println("*                                                                         *");
 		System.out.println("*       ■■■■■■                 ■       ■■ ■           ■ ■         ■       *");
@@ -19,6 +21,28 @@ public class View {
 		System.out.println("*       ■■■■■■   ■■■■ ■ ■   ■■ ■       ■■ ■     ■     ■    ■■■■■          *");
 		System.out.println("*                                                                         *");
 		System.out.println("***************************************************************************");
+	}
+	
+	public void title(){
+		OriginalTitle();
+	}
+	
+	public void title(Client selectedClient){
+		OriginalTitle();
+		System.out.println("현재 선택된 사용자 : " + selectedClient.getName() + " 현재 선택된 사용자의 자산 : " + selectedClient.getAsset());
+		System.out.println("---------------------------------------------------------------------------");
+	}
+	
+	public void title(Client selectedClient, Bank selectedBank){
+		String accountNumber = selectedClient.getAccountNumber(selectedBank);
+		OriginalTitle();
+		System.out.print("현재 선택된 사용자 : " + selectedClient.getName()
+								+ " 현재 선택된 사용자의 자산 : " + selectedClient.getAsset()
+								+ " 현재 선택된 계좌의 계좌번호 : " + accountNumber
+								+ "\n현재 선택된 은행계좌의 잔고 : " + selectedBank.getBalance(accountNumber));
+		if(selectedBank.getDebt(accountNumber) != 0)
+			System.out.print(" 현재 선택된 은행계좌의 대출금 : " + selectedBank.getDebt(accountNumber));
+		System.out.println("\n---------------------------------------------------------------------------");
 	}
 	
 //------------------------------------------------------------------------------ 시작 화면
@@ -132,8 +156,19 @@ public class View {
 		System.out.print("	계좌가 존재하지 않습니다.\n 계좌를 생성하시겠습니까? ( y / n ) : ");
 	}
 	
-	public void createAccount(){
+	public void createAccount(String accountNumber){
 		System.out.println("계좌가 생성되었습니다.");
+		System.out.println("계좌번호는 : " + accountNumber + "입니다.");
+		System.out.println("확인 후 아무키나 누르세요.");
+		try {
+			System.in.read();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteAccount(){
+		System.out.println("해당 은행의 계좌가 삭제 되었습니다.");
 	}
 	
 	public void deleteAccount(int bal){
@@ -146,5 +181,28 @@ public class View {
 	public void screenClear(){
 		for(int i=0; i < 80; i++)
 			System.out.println("");
+	}
+	
+//------------------------------------------------------------------------------ Error print functions...
+	
+	public void pressEnter(){
+		System.out.print("계속하려면 엔터를 누르세요.");
+		try {
+			System.in.read();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void intError(){
+		System.out.println("숫자만 입력하세요.");
+		pressEnter();
+	}
+	public void notEnoughAssetError(){
+		System.out.println("소지금이 부족합니다.");
+	}
+	
+	public void notEnoughBalanceError(){
+		System.out.println("계좌에 잔액이 부족합니다.");
 	}
 }
