@@ -7,118 +7,117 @@ import java.util.Random;
 import account.*;
 
 public class Bank {
-	
+
 	private HashMap<String, Account> account = Accounts.getInstance().accountList;
-	public String INIT = "";	//initial account number
+	public String INIT = ""; // initial account number
 	public double positiveInterest = 0.0;
 	public double negativeInterest = 0.0;
-	
-	public Bank(String INIT, double positiveInterest, double negativeInterest){
+
+	public Bank(String INIT, double positiveInterest, double negativeInterest) {
 		this.INIT = INIT;
 		this.positiveInterest = positiveInterest;
 		this.negativeInterest = negativeInterest;
 	}
-	
-	public String openAccount(String name){
+
+	public String openAccount(String name) {
 		String accountNumber = INIT + (new Random().nextInt(89999) + 10000);
-		
-		while(true)
-			if(account.containsKey(accountNumber))
+
+		while (true)
+			if (account.containsKey(accountNumber))
 				accountNumber = INIT + (new Random().nextInt(89999) + 10000);
 			else
 				break;
-		
+
 		account.put(accountNumber, new Account(accountNumber, name));
 		return accountNumber;
 	}
-	
-	public int closeAccount(String accountNumber){
-		if(account.get(accountNumber) != null){
+
+	public int closeAccount(String accountNumber) {
+		if (account.get(accountNumber) != null) {
 			int restBalance = account.get(accountNumber).getBalance();
 			account.remove(accountNumber);
 			return restBalance;
 		}
 		return 0; // if no account number
 	}
-	
-	public boolean deposit(String accountNumber, int money){
+
+	public boolean deposit(String accountNumber, int money) {
 		Account selectedAccount = account.get(accountNumber);
-		boolean isDone =  selectedAccount.deposit(money);
-		if(isDone && money > 0)
+		boolean isDone = selectedAccount.deposit(money);
+		if (isDone && money > 0)
 			selectedAccount.addStateList("입금 : " + money + " 잔액 : " + selectedAccount.getBalance());
 		return isDone;
 	}
-	
-	public boolean withdraw(String accountNumber, int money){
+
+	public boolean withdraw(String accountNumber, int money) {
 		Account selectedAccount = account.get(accountNumber);
-		boolean isDone = selectedAccount.withdraw(money); 
-		
-		if(!isDone)
+		boolean isDone = selectedAccount.withdraw(money);
+
+		if (!isDone)
 			selectedAccount.addStateList("출금 : " + money + " 잔액 : " + selectedAccount.getBalance());
 
 		return isDone;
-	}//false -> stay client money & print out on console
-	
-	public boolean transfer(String from, String to, int money){
-		try{
-		Account fromAccount = account.get(from);
-		Account toAccount = account.get(to);
-		
-		boolean isDone = fromAccount.withdraw(money);
-		if(isDone)
-			toAccount.deposit(money);
-		else
-			return false;
-		
-		fromAccount.addStateList("이체한 금액 : " + money + " 이체 계좌번호 : " + from + "잔액 : " + fromAccount.getBalance());
-		fromAccount.addStateList("이체된 금액 : " + money + " 이체 계좌번호 : " + to + "잔액 : "  + toAccount.getBalance());
-		
-		} catch(Exception e){
+	}// false -> stay client money & print out on console
+
+	public boolean transfer(String from, String to, int money) {
+		try {
+			Account fromAccount = account.get(from);
+			Account toAccount = account.get(to);
+
+			boolean isDone = toAccount.deposit(money);
+			if (isDone)
+				fromAccount.withdraw(money);
+			else
+				return false;
+
+			fromAccount.addStateList("이체한 금액 : " + money + " 이체 계좌번호 : " + to + " 잔액 : " + fromAccount.getBalance());
+			toAccount.addStateList("이체된 금액 : " + money + " 이체 계좌번호 : " + from + " 잔액 : " + toAccount.getBalance());
+
+		} catch (Exception e) {
 			System.out.println("없는 계좌번호 입니다.");
 		}
 		return true;
 	}
-	
-	public void loan(String accountNumber, int money){
+
+	public void loan(String accountNumber, int money) {
 		account.get(accountNumber).loan(money);
 	}
-	
-	public int getBalance(String accountNumber){
+
+	public int getBalance(String accountNumber) {
 		return account.get(accountNumber).getBalance();
 	}
-	
-	public int getDebt(String accountNumber){
+
+	public int getDebt(String accountNumber) {
 		return account.get(accountNumber).getDebt();
 	}
-	
-	public boolean repayOnAccount(String accountNumber, int money){
+
+	public boolean repayOnAccount(String accountNumber, int money) {
 		Account selectedAccount = account.get(accountNumber);
-		
+
 		boolean isDone = selectedAccount.repayOnAccount(money);
-		selectedAccount.addStateList("대출상환금액 : " + money 
-										+ " 남은 대출금 : " + selectedAccount.getDebt() 
-											+ "은행잔고 : " + selectedAccount.getBalance());
+		selectedAccount.addStateList("대출상환금액 : " + money + " 남은 대출금 : " + selectedAccount.getDebt() + "은행잔고 : "
+				+ selectedAccount.getBalance());
 		return isDone;
 	}
-	
-	public void repay(String accountNumber, int money){
+
+	public void repay(String accountNumber, int money) {
 		Account selectedAccount = account.get(accountNumber);
 		selectedAccount.repay(money);
 		selectedAccount.addStateList("대출상환금 : " + money + " 남은 대출금 : " + selectedAccount.getDebt());
 	}
-	
-	public LinkedList<String> getStateList(String accountNumber){
+
+	public LinkedList<String> getStateList(String accountNumber) {
 		return account.get(accountNumber).getStateList();
 	}
-	
-	public void timeLeapYear(){
-		for(String key: account.keySet()){
+
+	public void timeLeapYear() {
+		for (String key : account.keySet()) {
 			Account selectedAccount = account.get(key);
-			
-			selectedAccount.deposit((int)(selectedAccount.getBalance() * positiveInterest));
+
+			selectedAccount.deposit((int) (selectedAccount.getBalance() * positiveInterest));
 			selectedAccount.addStateList("예금 이자 : " + selectedAccount.getBalance() * positiveInterest);
-			
-			selectedAccount.loan((int)(selectedAccount.getDebt() * negativeInterest));
+
+			selectedAccount.loan((int) (selectedAccount.getDebt() * negativeInterest));
 			selectedAccount.addStateList("대출 이자 : " + selectedAccount.getDebt() * negativeInterest);
 		}
 	}

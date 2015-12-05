@@ -76,18 +76,18 @@ public class MainSequence {
 	// 은행선택 화면
 	public void bankSelectSeq() {
 		view.screenClear();
-		view.title();
+		view.title(selectedClient);
 		view.selectBank();
-		
+
 		try {
 			int select = sc.nextInt();
 
-			if (select == 0) 
+			if (select == 0)
 				clientSelectSequance();
 
 			selectedBank = findBank(select);
 
-			if (clients.haveAccount(selectedBank, selectedClient)) 
+			if (clients.haveAccount(selectedBank, selectedClient))
 				bankingSeq();
 			else
 				accountErrorSeq();
@@ -203,13 +203,20 @@ public class MainSequence {
 			view.screenClear();
 			view.title(selectedClient, selectedBank);
 			view.transferAccountNumber();
-			
+
 			String accountNumber = sc.next();
+			if (accountNumber.equals(selectedClient.getAccountNumber(selectedBank))) {
+				System.out.println("자신의 계좌로 입금할 수 없습니다.");
+				view.pressEnter();
+				break;
+			}
+
 			try {
 				view.transferMoney();
 				int money = sc.nextInt();
 				if (!selectedClient.transfer(selectedBank, accountNumber, money))
 					view.notEnoughBalanceError();
+
 				view.currentBalance(selectedClient.getBalance(selectedBank));
 				view.pressEnter();
 				break;
@@ -230,7 +237,7 @@ public class MainSequence {
 		view.screenClear();
 		view.title(selectedClient, selectedBank);
 		view.loan();
-		
+
 		try {
 			int money = sc.nextInt();
 			selectedClient.loan(selectedBank, money);
@@ -247,7 +254,7 @@ public class MainSequence {
 		view.screenClear();
 		view.title(selectedClient, selectedBank);
 		view.repay();
-		
+
 		try {
 			int money = sc.nextInt();
 			selectedClient.repay(selectedBank, money);
@@ -264,14 +271,14 @@ public class MainSequence {
 		view.screenClear();
 		view.title(selectedClient, selectedBank);
 		view.timeLeap();
-		
+
 		selectedClient.timeLeap(selectedBank);
 		view.pressEnter();
 	}
 
 	public void deleteBank() {
 		view.deleteAccount();
-		
+
 		selectedClient.closeAccount(selectedBank);
 		view.pressEnter();
 		bankSelectSeq();
