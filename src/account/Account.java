@@ -3,6 +3,7 @@ package account;
 import java.io.Serializable;
 import java.util.LinkedList;
 
+@SuppressWarnings("serial")
 public class Account implements Serializable {
 	private String accountNumber;
 	private String name;
