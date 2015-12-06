@@ -3,21 +3,18 @@ package client;
 import java.util.HashMap;
 import bank.*;
 
-public class Clients {
-	private static Clients clients;
-	private HashMap<Integer, Client> clientList;
+public final class Clients {
+	private static final Clients clients = new Clients();
+	private HashMap<Integer, Client> clientList = new HashMap<Integer, Client>();;
 
 	private Clients() {
-		clientList = new HashMap<Integer, Client>();
 	}
 
 	public static Clients getInstance() {
-		if (clients == null)
-			clients = new Clients();
 		return clients;
 	}
-	
-	public HashMap<Integer, Client> getClientList(){
+
+	public HashMap<Integer, Client> getClientList() {
 		return clientList;
 	}
 
