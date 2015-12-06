@@ -5,10 +5,11 @@ import java.util.LinkedList;
 
 import bank.*;
 
+@SuppressWarnings("serial")
 public class Client implements Serializable{
 	private int asset; // 은행에 입금하지 않은 소지금
-	private String name;
-	private String KBBankAccountNumber;
+	private String name;	//	client name
+	private String KBBankAccountNumber;	//	each bank's account number
 	private String NHBankAccountNumber;
 	private String WooriBankAccountNumber;
 
@@ -29,8 +30,18 @@ public class Client implements Serializable{
 			return WooriBankAccountNumber = bank.openAccount(name);
 	}
 
-	public void closeAccount(Bank bank) {
-		asset += bank.closeAccount(getAccountNumber(bank));
+	public int closeAccount(Bank bank) {
+		int rest = bank.closeAccount(getAccountNumber(bank));
+		asset += rest;
+		
+		if (bank.getClass() == KBBank.class)
+			KBBankAccountNumber = "0";
+		else if (bank.getClass() == NHBank.class)
+			NHBankAccountNumber = "0";
+		else
+			WooriBankAccountNumber = "0";
+		
+		return rest;
 	}
 
 	public boolean deposit(Bank bank, int money) { // 예금
