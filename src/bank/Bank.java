@@ -38,7 +38,7 @@ public class Bank {
 			account.remove(accountNumber);
 			return restBalance;
 		}
-		return 0; // if no account number
+		return -1; // if no account number
 	}
 
 	public boolean deposit(String accountNumber, int money) {
@@ -53,7 +53,7 @@ public class Bank {
 		Account selectedAccount = account.get(accountNumber);
 		boolean isDone = selectedAccount.withdraw(money);
 
-		if (!isDone)
+		if (isDone)
 			selectedAccount.addStateList("출금 : " + money + " 잔액 : " + selectedAccount.getBalance());
 
 		return isDone;
@@ -110,6 +110,7 @@ public class Bank {
 		return account.get(accountNumber).getStateList();
 	}
 
+	// 해당 은행의 모든 계좌의 예금, 대출에 대한 이자를 계산한다
 	public void timeLeapYear() {
 		for (String key : account.keySet()) {
 			Account selectedAccount = account.get(key);
@@ -117,8 +118,9 @@ public class Bank {
 			selectedAccount.deposit((int) (selectedAccount.getBalance() * positiveInterest));
 			selectedAccount.addStateList("예금 이자 : " + selectedAccount.getBalance() * positiveInterest);
 
+			if(selectedAccount.getDebt() != 0)
+				selectedAccount.addStateList("대출 이자 : " + selectedAccount.getDebt() * negativeInterest);
 			selectedAccount.loan((int) (selectedAccount.getDebt() * negativeInterest));
-			selectedAccount.addStateList("대출 이자 : " + selectedAccount.getDebt() * negativeInterest);
 		}
 	}
 }
