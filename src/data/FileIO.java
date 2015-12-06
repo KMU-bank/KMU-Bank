@@ -11,19 +11,20 @@ import client.Client;
 
 public class FileIO {
 	
+	@SuppressWarnings("resource")
 	public static void backUpAccountsOnFile(HashMap<String, Account> accountList) {
 		try {
-			FileOutputStream fos = new FileOutputStream("Accounts.db");
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			final ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Accounts.db"));
 
 			for (String key : accountList.keySet())
 				oos.writeObject(accountList.get(key));
 		} catch (Exception e) {}
 	}
 
+	@SuppressWarnings("resource")
 	public static void restoreAccountsFromFile(HashMap<String, Account> accountList) {
 		try {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Accounts.db"));
+			final ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Accounts.db"));
 
 			Account account;
 			do {
@@ -35,19 +36,20 @@ public class FileIO {
 		} catch (Exception e) {}
 	}
 	
+	@SuppressWarnings("resource")
 	public static void backUpClientsOnFile(HashMap<Integer, Client> clientList){
 		try {
-			FileOutputStream fos = new FileOutputStream("Clients.db");
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			final ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Clients.db"));
 
 			for (int key : clientList.keySet())
 				oos.writeObject(clientList.get(key));
 		} catch (Exception e) {}
 	}
 	
+	@SuppressWarnings("resource")
 	public static void restoreClientsFromFile(HashMap<Integer, Client> clientList) {
 		try {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Clients.db"));
+			final ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Clients.db"));
 
 			int i = 1;
 			Client client;
