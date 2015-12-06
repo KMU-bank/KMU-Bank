@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import account.Account;
-import account.Accounts;
 
 public class testAccount {
 
@@ -45,10 +44,5 @@ public class testAccount {
 		account.findReport();
 		account.useCard("껌값", 100);
 		assertEquals(400, account.getBalance());
-	}
-
-	public void testAccounts1() {
-		Accounts acs = Accounts.getInstance();
-		assertEquals(acs, acs.getInstance());
 	}
 }
