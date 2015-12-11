@@ -69,7 +69,7 @@ public class Account implements Serializable {
 	//
 	// loan function
 	public boolean loan(int money) {
-		if(money <= 0)
+		if(money <= 0) 
 			return false;
 		debt += money;
 		return true;

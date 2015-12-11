@@ -66,16 +66,17 @@ public class Bank {
 			Account toAccount = account.get(to);
 
 			boolean isDone = toAccount.deposit(money);
-			if (isDone)
-				fromAccount.withdraw(money);
-			else
+			if (!isDone)
 				return false;
+			
+			fromAccount.withdraw(money);
 
 			fromAccount.addStateList("이체한 금액 : " + money + " 이체 계좌번호 : " + to + " 잔액 : " + fromAccount.getBalance());
 			toAccount.addStateList("이체된 금액 : " + money + " 이체 계좌번호 : " + from + " 잔액 : " + toAccount.getBalance());
 
 		} catch (Exception e) {
 			System.out.println("없는 계좌번호 입니다.");
+			return false;
 		}
 		return true;
 	}
@@ -105,10 +106,14 @@ public class Bank {
 		return isDone;
 	}
 
-	public void repay(String accountNumber, int money) {
+	public boolean repay(String accountNumber, int money) {
 		Account selectedAccount = account.get(accountNumber);
-		selectedAccount.repay(money);
+		boolean isDone = selectedAccount.repay(money);
+		if(!isDone)
+			return false;
+		
 		selectedAccount.addStateList("대출상환금 : " + money + " 남은 대출금 : " + selectedAccount.getDebt());
+		return true;
 	}
 
 	public LinkedList<String> getStateList(String accountNumber) {
