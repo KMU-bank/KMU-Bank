@@ -44,24 +44,27 @@ public class Client implements Serializable{
 		return rest;
 	}
 
-	public boolean deposit(Bank bank, int money) { // 예금
+	public int deposit(Bank bank, int money) { // 예금
 		if (money > asset)
-			return false;
-		asset -= money;
-		if (!bank.deposit(getAccountNumber(bank), money))
+			return 1;
+		
+		if (money <= 0 || !bank.deposit(getAccountNumber(bank), money)){
 			System.out.println("입금 실패!");
-		return true;
+			return 2;
+		}
+		asset -= money;
+		return 0;
 	}
 
-	public boolean withdraw(Bank bank, int money) {
+	public int withdraw(Bank bank, int money) {
 		if (money <= 0) {
 			System.out.println("출금 실패!");
-			return true;
+			return 2;
 		} else if (!bank.withdraw(getAccountNumber(bank), money))
-			return false;
+			return 1;
 
 		asset += money; // 출금에 성공했을때만 현재자산이 변화함
-		return true;
+		return 0;
 	}
 
 	public boolean loan(Bank bank, int money) { // money : 빌릴 돈
@@ -75,7 +78,10 @@ public class Client implements Serializable{
 	public boolean repay(Bank bank, int money) {
 		if (asset < money)
 			return false;
-		bank.repay(getAccountNumber(bank), money);
+		boolean isDone = bank.repay(getAccountNumber(bank), money);
+		if(!isDone)
+			return false;
+		
 		asset -= money;
 		return true;
 	}
