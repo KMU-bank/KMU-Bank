@@ -1,3 +1,7 @@
+/*********************************************************
+ * BanKMU - WooriBank class
+ * Description: Bank 클래스를 상속받은 은행 중 하나
+ **********************************************************/
 package bank;
 
 public class WooriBank extends Bank {

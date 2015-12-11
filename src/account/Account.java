@@ -1,11 +1,8 @@
 /*********************************************************
- * BanKMU
- * Account class
- * P 
- * Description: 프로그램의 목적을 설명할 것(explain purpose of program)
- * Algorithm : 알고리즘을 서술할 것(describe algorithm)
+ * BanKMU - Account class
+ * Description: account클래스는 Bank클래스가 관리하는 고객의 계좌정보를 담고있다.
+ * 계좌내의 정보를 수정/반환할 수 있으며 상환/대출 시 Account정보의 변화가 정의되어 있다 
  **********************************************************/
-
 package account;
 
 import java.io.Serializable;
