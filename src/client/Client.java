@@ -15,7 +15,7 @@ public class Client implements Serializable{
 
 	public Client(String Name) { // 생성자
 		name = Name;
-		asset = 2000000; // 기본 소지금
+		asset = 3000000; // 기본 소지금
 		KBBankAccountNumber = "0";
 		NHBankAccountNumber = "0";
 		WooriBankAccountNumber = "0";
@@ -64,9 +64,12 @@ public class Client implements Serializable{
 		return true;
 	}
 
-	public void loan(Bank bank, int money) { // money : 빌릴 돈
-		bank.loan(getAccountNumber(bank), money);
-		this.asset += money;
+	public boolean loan(Bank bank, int money) { // money : 빌릴 돈
+		if(bank.loan(getAccountNumber(bank), money)){
+			this.asset += money;
+			return true;
+		}
+		return false;
 	}
 
 	public boolean repay(Bank bank, int money) {
