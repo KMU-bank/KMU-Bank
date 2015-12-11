@@ -23,7 +23,9 @@ public final class Clients {
 	}
 
 	public void createClient(String name) { // name, key
-		for (int i = 1; i < 100; i++)
+		if (name.equals("0"))
+			return;
+		for (int i = 1; i < Integer.MAX_VALUE; i++)
 			if (!clientList.containsKey(i)) {
 				clientList.put(i, new Client(name));
 				return;
