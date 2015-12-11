@@ -99,10 +99,12 @@ public class Bank {
 	public boolean repayOnAccount(String accountNumber, int money) {	// 걔좌를 통한 대출 상환
 		Account selectedAccount = account.get(accountNumber);
 
-		boolean isDone = selectedAccount.repayOnAccount(money);
+		if(!selectedAccount.repayOnAccount(money))
+			return false;
+		
 		selectedAccount.addStateList("대출상환금액 : " + money + " 남은 대출금 : " + selectedAccount.getDebt() + "은행잔고 : "
 				+ selectedAccount.getBalance());
-		return isDone;
+		return true;
 	}
 
 	public boolean repay(String accountNumber, int money) {				// 현금 대출 상환

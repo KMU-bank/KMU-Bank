@@ -311,6 +311,7 @@ public class MainSequence {
 				}
 
 				View.unvalidInput();
+				View.pressEnter();
 
 			} catch (Exception e) {
 				sc.nextLine();

@@ -54,19 +54,17 @@ public class Client implements Serializable{
 		if (money > asset)
 			return 1;
 		
-		if (money <= 0 || !bank.deposit(getAccountNumber(bank), money)){
-			System.out.println("입금 실패!");
+		if (money <= 0 || !bank.deposit(getAccountNumber(bank), money))
 			return 2;
-		}
+			
 		asset -= money;
 		return 0;
 	}
 
 	public int withdraw(Bank bank, int money) {
-		if (money <= 0) {
-			System.out.println("출금 실패!");
+		if (money <= 0) 
 			return 2;
-		} else if (!bank.withdraw(getAccountNumber(bank), money))
+		else if (!bank.withdraw(getAccountNumber(bank), money))
 			return 1;
 
 		asset += money; // 출금에 성공했을때만 현재자산이 변화함
