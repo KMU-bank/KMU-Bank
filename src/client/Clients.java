@@ -1,3 +1,8 @@
+/*********************************************************
+ * BanKMU - Clients class
+ * Description: Client class를 해쉬맵에 담아 관리하는 클래스다.
+ * Client를 생성/수정/삭제할 수 있다.
+ **********************************************************/
 package client;
 
 import java.util.HashMap;
@@ -5,7 +10,7 @@ import bank.*;
 
 public final class Clients {
 	private static final Clients clients = new Clients();
-	private HashMap<Integer, Client> clientList = new HashMap<Integer, Client>();;
+	private HashMap<Integer, Client> clientList = new HashMap<Integer, Client>();
 
 	private Clients() {
 	}
