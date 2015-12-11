@@ -1,3 +1,11 @@
+/*********************************************************
+ * BanKMU
+ * Account class
+ * P 
+ * Description: 프로그램의 목적을 설명할 것(explain purpose of program)
+ * Algorithm : 알고리즘을 서술할 것(describe algorithm)
+ **********************************************************/
+
 package account;
 
 import java.io.Serializable;
