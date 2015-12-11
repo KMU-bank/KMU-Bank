@@ -35,8 +35,9 @@ public class Bank {
 	public int closeAccount(String accountNumber) {
 		if (account.get(accountNumber) != null) {
 			int restBalance = account.get(accountNumber).getBalance();
+			int restDebt = account.get(accountNumber).getDebt();
 			account.remove(accountNumber);
-			return restBalance;
+			return restBalance - restDebt; // 대출이 더 많을 경우 음수 반환
 		}
 		return -1; // if no account number
 	}
@@ -79,8 +80,12 @@ public class Bank {
 		return true;
 	}
 
-	public void loan(String accountNumber, int money) {
-		account.get(accountNumber).loan(money);
+	public boolean loan(String accountNumber, int money) {
+		if (!account.get(accountNumber).loan(money))
+			return false;
+		account.get(accountNumber)
+				.addStateList("대출 금액 : " + money + " 남은 대출금 : " + account.get(accountNumber).getDebt());
+		return true;
 	}
 
 	public int getBalance(String accountNumber) {
@@ -115,12 +120,18 @@ public class Bank {
 		for (String key : account.keySet()) {
 			Account selectedAccount = account.get(key);
 
-			selectedAccount.deposit((int) (selectedAccount.getBalance() * positiveInterest));
-			selectedAccount.addStateList("예금 이자 : " + selectedAccount.getBalance() * positiveInterest);
+			if (selectedAccount.getBalance() != 0) {
+				int interest = (int) (selectedAccount.getBalance() * positiveInterest);
+				selectedAccount.deposit(interest);
+				selectedAccount.addStateList("예금 이자 : " + interest + " 잔액 : " + selectedAccount.getBalance());
+			}
 
-			if(selectedAccount.getDebt() != 0)
-				selectedAccount.addStateList("대출 이자 : " + selectedAccount.getDebt() * negativeInterest);
-			selectedAccount.loan((int) (selectedAccount.getDebt() * negativeInterest));
+			if (selectedAccount.getDebt() != 0) {
+				int debt = (int) (selectedAccount.getDebt() * negativeInterest);
+				selectedAccount.loan(debt);
+				if (selectedAccount.getDebt() != 0)
+					selectedAccount.addStateList("대출 이자 : " + debt + " 남은 대출 : " + selectedAccount.getDebt());
+			}
 		}
 	}
 }
