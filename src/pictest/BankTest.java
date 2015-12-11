@@ -10,6 +10,23 @@ import bank.KBBank;
 public class BankTest {
 
 	@Test
+	public void test0() {
+		Bank bank = new KBBank();
+		String accountNumber = bank.openAccount("한글");
+		
+		assertTrue(bank.deposit(accountNumber, 5000000));
+		assertTrue(bank.loan(accountNumber, 1000000));
+		
+		assertEquals(5000000, bank.getBalance(accountNumber));
+		assertEquals(1000000, bank.getDebt(accountNumber));
+		
+		bank.timeLeapYear();
+		assertEquals(5000000 + 1050000, bank.getBalance(accountNumber));
+		assertEquals(1000000 + 410000, bank.getDebt(accountNumber));
+		assertEquals(4640000, bank.closeAccount(accountNumber));
+	}
+	
+	@Test
 	public void test1() {
 		Bank bank = new KBBank();
 		String accountNumber = bank.openAccount("한글");
