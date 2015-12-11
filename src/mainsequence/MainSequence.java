@@ -195,8 +195,12 @@ public class MainSequence {
 				int money = sc.nextInt();
 				if (money == 0)		// 0은 언제나 취소
 					break;
-				if (!selectedClient.deposit(selectedBank, money))	// 현금이 입금액보다 부족할 시 ERROR
+				
+				int errorCode = selectedClient.deposit(selectedBank, money); 
+				if (errorCode == 1)	// 현금이 입금액보다 부족할 시 ERROR
 					View.notEnoughAssetError();
+				else if(errorCode == 2)
+					System.out.println("입금 실패!");
 
 				View.currentBalance(selectedClient.getBalance(selectedBank));
 				View.pressEnter();
@@ -220,8 +224,13 @@ public class MainSequence {
 				int money = sc.nextInt();
 				if (money == 0)		// 0은 언제나 취소
 					break;
-				if (!selectedClient.withdraw(selectedBank, money))		// 출금할 계좌 잔금이 출금액보다 적을시 ERROR
+				
+				int errorCode = selectedClient.withdraw(selectedBank, money);
+				
+				if (errorCode == 1)		// 출금할 계좌 잔금이 출금액보다 적을시 ERROR
 					View.notEnoughBalanceError();
+				else if(errorCode == 2)
+					System.out.println("출금 실패!");
 
 				View.currentBalance(selectedClient.getBalance(selectedBank));
 				View.pressEnter();
@@ -302,6 +311,7 @@ public class MainSequence {
 				}
 
 				View.unvalidInput();
+				View.pressEnter();
 
 			} catch (Exception e) {
 				sc.nextLine();

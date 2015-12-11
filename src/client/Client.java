@@ -50,24 +50,38 @@ public class Client implements Serializable{
 		return rest;
 	}
 
+<<<<<<< HEAD
 	public boolean deposit(Bank bank, int money) {		// 예금
+=======
+	public int deposit(Bank bank, int money) { // 예금
+>>>>>>> 09d718cb14fe04c69d4b67ff9c664a9ddb6b8b7e
 		if (money > asset)
-			return false;
+			return 1;
+		
+		if (money <= 0 || !bank.deposit(getAccountNumber(bank), money))
+			return 2;
+			
 		asset -= money;
-		if (!bank.deposit(getAccountNumber(bank), money))
-			System.out.println("입금 실패!");
-		return true;
+		return 0;
 	}
 
+<<<<<<< HEAD
 	public boolean withdraw(Bank bank, int money) {		// 출금
 		if (money <= 0) {
 			System.out.println("출금 실패!");
 			return true;
 		} else if (!bank.withdraw(getAccountNumber(bank), money))
 			return false;
+=======
+	public int withdraw(Bank bank, int money) {
+		if (money <= 0) 
+			return 2;
+		else if (!bank.withdraw(getAccountNumber(bank), money))
+			return 1;
+>>>>>>> 09d718cb14fe04c69d4b67ff9c664a9ddb6b8b7e
 
 		asset += money; // 출금에 성공했을때만 현재자산이 변화함
-		return true;
+		return 0;
 	}
 
 	public boolean loan(Bank bank, int money) { 			// 대출
@@ -81,7 +95,10 @@ public class Client implements Serializable{
 	public boolean repay(Bank bank, int money) {			// 대출 상환 - 현금
 		if (asset < money)
 			return false;
-		bank.repay(getAccountNumber(bank), money);
+		boolean isDone = bank.repay(getAccountNumber(bank), money);
+		if(!isDone)
+			return false;
+		
 		asset -= money;
 		return true;
 	}
