@@ -87,7 +87,7 @@ public class MainSequence {
 
 				if (select == 0)
 					break;
-				
+
 				selectedBank = findBank(select);
 				if (Clients.getInstance().haveAccount(selectedBank, selectedClient))
 					bankingSeq();
@@ -138,7 +138,7 @@ public class MainSequence {
 
 			try {
 				int select = Integer.parseInt(sc.next());
-				
+
 				switch (select) {
 				case 0:
 					break loop;
@@ -186,6 +186,8 @@ public class MainSequence {
 
 			try {
 				int money = sc.nextInt();
+				if (money == 0)
+					break;
 				if (!selectedClient.deposit(selectedBank, money))
 					View.notEnoughAssetError();
 
@@ -207,6 +209,8 @@ public class MainSequence {
 
 			try {
 				int money = sc.nextInt();
+				if (money == 0)
+					break;
 				if (!selectedClient.withdraw(selectedBank, money))
 					View.notEnoughBalanceError();
 
@@ -237,10 +241,15 @@ public class MainSequence {
 				accountNumber = sc.next();
 			} // 계좌번호를 모를때 모든 client의 계좌번호를 출력한다
 
+			if (accountNumber.equals("0"))
+				break;
+
 			try {
 				View.transferMoney();
 
 				int money = sc.nextInt();
+				if (money == 0)
+					break;
 
 				if (!selectedClient.transfer(selectedBank, accountNumber, money))
 					View.notEnoughBalanceError();
@@ -268,12 +277,17 @@ public class MainSequence {
 
 			try {
 				int money = sc.nextInt();
+				if (money == 0)
+					break;
 
-				selectedClient.loan(selectedBank, money);
+				if (selectedClient.loan(selectedBank, money)) {
+					View.currentDebt(selectedClient.getDebt(selectedBank));
+					View.pressEnter();
+					break;
+				}
 
-				View.currentDebt(selectedClient.getDebt(selectedBank));
-				View.pressEnter();
-				break;
+				View.unvalidInput();
+
 			} catch (Exception e) {
 				sc.nextLine();
 				View.intError();
@@ -289,8 +303,22 @@ public class MainSequence {
 
 			try {
 				int money = sc.nextInt();
+				if (money == 0)
+					break;
 
-				selectedClient.repay(selectedBank, money);
+				View.selectAssetOrAccount();
+				int select = sc.nextInt();
+				if (select == 0)
+					break;
+				else if (select == 1 && !selectedClient.repay(selectedBank, money))
+					View.notEnoughAssetError();
+				else if (select == 2 && !selectedClient.repayOnAccount(selectedBank, money))
+					View.notEnoughBalanceError();
+				else{
+					View.unvalidInput();
+					View.pressEnter();
+					break;
+				}
 
 				View.currentDebt(selectedClient.getDebt(selectedBank));
 				View.pressEnter();
@@ -328,6 +356,14 @@ public class MainSequence {
 	public static void main(String args[]) {
 		FileIO.restoreClientsFromFile(Clients.getInstance().getClientList());
 		FileIO.restoreAccountsFromFile(Accounts.getInstance().getAccountList());
+
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			@Override
+			public void run() {
+				FileIO.backUpClientsOnFile(Clients.getInstance().getClientList());
+				FileIO.backUpAccountsOnFile(Accounts.getInstance().getAccountList());
+			}
+		}); // 비정상적인 프로그램 종료가 일어날 때 DB에 write한 후 종료한다.
 
 		MainSequence seq = new MainSequence();
 		seq.firstSequence();
