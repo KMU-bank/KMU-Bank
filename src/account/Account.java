@@ -8,10 +8,8 @@ public class Account implements Serializable {
 	private String accountNumber;
 	private String name;
 	private int balance;
-	private boolean haveCard = false;
 	private LinkedList<String> stateList = new LinkedList<String>();
 	private int debt = 0;
-	private boolean stolen = false;
 
 	public Account(String accountNumber, String name) {
 		this.accountNumber = accountNumber;
@@ -19,8 +17,9 @@ public class Account implements Serializable {
 		this.balance = 0;
 	}
 
+	//
+	//
 	// getter & setter...
-
 	public String getAccountNumber() {
 		return accountNumber;
 	}
@@ -45,6 +44,8 @@ public class Account implements Serializable {
 		stateList.add(state);
 	}
 
+	//
+	//
 	// basic function...
 	public boolean deposit(int money) {
 		if (money <= 0)
@@ -54,7 +55,7 @@ public class Account implements Serializable {
 	}
 
 	public boolean withdraw(int money) {
-		if (balance < money)
+		if (balance < money || money <= 0)
 			return false;
 		balance -= money;
 		return true;
@@ -64,47 +65,29 @@ public class Account implements Serializable {
 		return withdraw(money);
 	}
 
+	//
+	//
 	// loan function
-	public void loan(int money) {
+	public boolean loan(int money) {
+		if(money <= 0)
+			return false;
 		debt += money;
+		return true;
 	}
 
 	public boolean repay(int money) {
-		if (debt < money)
+		if (debt < money || money <= 0)
 			return false;
 		debt -= money;
 		return true;
 	}
 
 	public boolean repayOnAccount(int money) {
+		if(debt < money)
+			return false;
 		boolean isDone = withdraw(money);
 		if (isDone)
 			debt -= money;
 		return isDone;
-	}
-
-	// card function...
-	public void lostReport() {
-		stolen = true;
-	}
-
-	public void findReport() {
-		stolen = false;
-	}
-
-	public boolean makeCard() {
-		if (haveCard)
-			return false; // if already have card
-
-		haveCard = true;
-		return true;
-	}
-
-	public boolean useCard(String state, int money) {
-		if (!haveCard || stolen)
-			return false;
-
-		balance -= money;
-		return true;
 	}
 }
