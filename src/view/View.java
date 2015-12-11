@@ -1,3 +1,7 @@
+/*********************************************************
+ * BanKMU - View class
+ * Description: MainSequence에 의해 콘솔에 띄워지는 텍스트를 출력하는 함수.
+ **********************************************************/
 package view;
 
 import java.io.IOException;
