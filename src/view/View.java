@@ -25,6 +25,7 @@ public class View {
 		System.out.println("*       ■■■■■■   ■■■■ ■ ■   ■■ ■       ■■ ■     ■     ■    ■■■■■          *");
 		System.out.println("*                                                                         *");
 		System.out.println("***************************************************************************");
+		System.out.println("                     - Tip : 모든 선택, 입력 화면에서 0을 입력하면 이전 단계로 넘어갑니다.");
 	}
 
 	public static final void title() {
@@ -167,6 +168,13 @@ public class View {
 		System.out.println("상환하실 금액을 입력해 주시기 바랍니다.");
 		System.out.print(" 상환 금액 : ");
 	}
+	
+	public static final void selectAssetOrAccount(){
+		System.out.println("피상환 개체를 선택해 주시기 바랍니다.");
+		System.out.println("1. My Asset");
+		System.out.println("2. My Account");
+		System.out.print(" Select Number : ");
+	}
 
 	public static final void timeLeap() {
 		System.out.println("	1년 후로 이동합니다. (푸슝---~=★!)");
@@ -182,7 +190,7 @@ public class View {
 	public static final void createAccount(String accountNumber) {
 		System.out.println("계좌가 생성되었습니다.");
 		System.out.println("계좌번호는 : " + accountNumber + "입니다.");
-		System.out.println("확인 후 아무키나 누르세요.");
+		System.out.println("확인 후 엔터를 누르세요.");
 		try {
 			System.in.read();
 		} catch (IOException e) {
@@ -226,5 +234,9 @@ public class View {
 
 	public static final void notEnoughBalanceError() {
 		System.out.println("계좌에 잔액이 부족합니다.");
+	}
+	
+	public static final void unvalidInput(){
+		System.out.println("잘못된 입력입니다.");
 	}
 }
