@@ -65,11 +65,12 @@ public class Bank {
 			Account fromAccount = account.get(from);
 			Account toAccount = account.get(to);
 
-			boolean isDone = toAccount.deposit(money);
+			boolean isDone = fromAccount.withdraw(money);
+			
 			if (!isDone)
 				return false;
 			
-			fromAccount.withdraw(money);
+			toAccount.deposit(money);
 
 			fromAccount.addStateList("이체한 금액 : " + money + " 이체 계좌번호 : " + to + " 잔액 : " + fromAccount.getBalance());
 			toAccount.addStateList("이체된 금액 : " + money + " 이체 계좌번호 : " + from + " 잔액 : " + toAccount.getBalance());
