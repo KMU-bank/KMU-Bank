@@ -10,6 +10,7 @@ Client의 명령을 콘솔로 입력받아 Bank의 기능을 이용하는 프로
 
 개발에 이용한 툴 : gitHub, Eclipse, junit, pict
 
+
 작동원리 및 Class 설계도는 doc폴더의 specification에 정리되어 있습니다.
 
 프로젝트 개요는 doc폴더의 TeamProject에 정리되어 있습니다.
