@@ -13,21 +13,21 @@ import bank.*;
 
 @SuppressWarnings("serial")
 public class Client implements Serializable{
-	private int asset; // 은행에 입금하지 않은 소지금
-	private String name;	//	client name
-	private String KBBankAccountNumber;	//	each bank's account number
+	private int asset; 							// 은행에 입금하지 않은 소지금
+	private String name;						// client name
+	private String KBBankAccountNumber;			// each bank's account number
 	private String NHBankAccountNumber;
 	private String WooriBankAccountNumber;
 
-	public Client(String Name) { // 생성자
+	public Client(String Name) { 				// 생성자
 		name = Name;
-		asset = 3000000; // 기본 소지금
+		asset = 3000000;						// 기본 소지금
 		KBBankAccountNumber = "0";
 		NHBankAccountNumber = "0";
 		WooriBankAccountNumber = "0";
 	}
 
-	public String openAccount(Bank bank) {
+	public String openAccount(Bank bank) {		// 은행별 계좌 생성
 		if (bank.getClass() == KBBank.class)
 			return KBBankAccountNumber = bank.openAccount(name);
 		else if (bank.getClass() == NHBank.class)
@@ -36,7 +36,7 @@ public class Client implements Serializable{
 			return WooriBankAccountNumber = bank.openAccount(name);
 	}
 
-	public int closeAccount(Bank bank) {
+	public int closeAccount(Bank bank) {		// 은행별 계좌 삭제
 		int rest = bank.closeAccount(getAccountNumber(bank));
 		asset += rest;
 		
@@ -50,7 +50,11 @@ public class Client implements Serializable{
 		return rest;
 	}
 
+<<<<<<< HEAD
+	public boolean deposit(Bank bank, int money) {		// 예금
+=======
 	public int deposit(Bank bank, int money) { // 예금
+>>>>>>> 09d718cb14fe04c69d4b67ff9c664a9ddb6b8b7e
 		if (money > asset)
 			return 1;
 		
@@ -61,17 +65,26 @@ public class Client implements Serializable{
 		return 0;
 	}
 
+<<<<<<< HEAD
+	public boolean withdraw(Bank bank, int money) {		// 출금
+		if (money <= 0) {
+			System.out.println("출금 실패!");
+			return true;
+		} else if (!bank.withdraw(getAccountNumber(bank), money))
+			return false;
+=======
 	public int withdraw(Bank bank, int money) {
 		if (money <= 0) 
 			return 2;
 		else if (!bank.withdraw(getAccountNumber(bank), money))
 			return 1;
+>>>>>>> 09d718cb14fe04c69d4b67ff9c664a9ddb6b8b7e
 
 		asset += money; // 출금에 성공했을때만 현재자산이 변화함
 		return 0;
 	}
 
-	public boolean loan(Bank bank, int money) { // money : 빌릴 돈
+	public boolean loan(Bank bank, int money) { 			// 대출
 		if(bank.loan(getAccountNumber(bank), money)){
 			this.asset += money;
 			return true;
@@ -79,7 +92,7 @@ public class Client implements Serializable{
 		return false;
 	}
 
-	public boolean repay(Bank bank, int money) {
+	public boolean repay(Bank bank, int money) {			// 대출 상환 - 현금
 		if (asset < money)
 			return false;
 		boolean isDone = bank.repay(getAccountNumber(bank), money);
@@ -90,7 +103,7 @@ public class Client implements Serializable{
 		return true;
 	}
 
-	public boolean repayOnAccount(Bank bank, int money) {
+	public boolean repayOnAccount(Bank bank, int money) {	// 대출 상환 - 계좌
 		return bank.repayOnAccount(getAccountNumber(bank), money);
 	}
 
@@ -98,11 +111,13 @@ public class Client implements Serializable{
 		return bank.transfer(getAccountNumber(bank), toAccount, money);
 	}
 
-	public void timeLeap(Bank bank) {
+	public void timeLeap(Bank bank) {						// 시간이동! 도와줘! 돈데크만!
 		bank.timeLeapYear();
 	}
 
-	/* getter & setter */
+	//
+	//
+	// ------------------------ getter & setter ---------------------------
 	public String getAccountNumber(Bank bank) {
 		if (bank.getClass() == KBBank.class)
 			return KBBankAccountNumber;
