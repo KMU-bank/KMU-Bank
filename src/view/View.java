@@ -101,9 +101,9 @@ public class View {
 	// 은행 선택 화면입니다. 사용자는 총 3개의 은행중에 사용할 은행을 자유로이 선택해 사용 할 수 있습니다.
 	public static final void selectBank() {
 		System.out.println("은행을 선택해주세요");
-		System.out.println("1. KB");
-		System.out.println("2. NH");
-		System.out.println("3. Woori");
+		System.out.println("1. KB Bank");
+		System.out.println("2. NH Bank");
+		System.out.println("3. Woori Bank");
 		System.out.print(" Select Number : ");
 	}
 

@@ -16,9 +16,8 @@ import view.View;
 public class MainSequence {
 	private final Scanner sc = new Scanner(System.in);
 
-	Client selectedClient;
-	Bank selectedBank;
-	Account selectedAccount;
+	private Client selectedClient;
+	private Bank selectedBank;
 
 	public void firstSequence() {
 		while (true) {
@@ -252,15 +251,16 @@ public class MainSequence {
 
 			String accountNumber = sc.next();
 
-			if (accountNumber.equals(selectedClient.getAccountNumber(selectedBank))) {		// 이체시 자기 계좌에서 자기 계좌로의 이체는 불가능 합니다.
+			if(accountNumber.equals("-1")) {		// 본래는 계좌번호를 따로 알아야 하지만, 편의상 현제 개설된 사용자-계좌 를 확인 할 수 있는 커멘드입니다.
+				View.printAccountNumber();
+				accountNumber = sc.next();
+			}	// 계좌번호를 모를때 모든 client의 계좌번호를 출력한다
+			else if (accountNumber.equals(selectedClient.getAccountNumber(selectedBank))) {		// 이체시 자기 계좌에서 자기 계좌로의 이체는 불가능 합니다.
 				System.out.println("자신의 계좌로 입금할 수 없습니다.");
 				View.pressEnter();
 				break;
-			} else if (accountNumber.equals("-1")) {		// 본래는 계좌번호를 따로 알아야 하지만, 편의상 현제 개설된 사용자-계좌 를 확인 할 수 있는 커멘드입니다.
-				View.printAccountNumber();
-				accountNumber = sc.next();
-			} // 계좌번호를 모를때 모든 client의 계좌번호를 출력한다
-
+			}
+			
 			if (accountNumber.equals("0"))		// 0은 언제나 취소
 				break;
 
