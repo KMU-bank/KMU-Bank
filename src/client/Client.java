@@ -50,11 +50,7 @@ public class Client implements Serializable{
 		return rest;
 	}
 
-<<<<<<< HEAD
-	public boolean deposit(Bank bank, int money) {		// 예금
-=======
 	public int deposit(Bank bank, int money) { // 예금
->>>>>>> 09d718cb14fe04c69d4b67ff9c664a9ddb6b8b7e
 		if (money > asset)
 			return 1;
 		
@@ -65,20 +61,11 @@ public class Client implements Serializable{
 		return 0;
 	}
 
-<<<<<<< HEAD
-	public boolean withdraw(Bank bank, int money) {		// 출금
-		if (money <= 0) {
-			System.out.println("출금 실패!");
-			return true;
-		} else if (!bank.withdraw(getAccountNumber(bank), money))
-			return false;
-=======
 	public int withdraw(Bank bank, int money) {
 		if (money <= 0) 
 			return 2;
 		else if (!bank.withdraw(getAccountNumber(bank), money))
 			return 1;
->>>>>>> 09d718cb14fe04c69d4b67ff9c664a9ddb6b8b7e
 
 		asset += money; // 출금에 성공했을때만 현재자산이 변화함
 		return 0;
